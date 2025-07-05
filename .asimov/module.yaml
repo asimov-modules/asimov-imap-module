@@ -1,0 +1,18 @@
+# See: https://asimov-specs.github.io/module-manifest/
+---
+name: imap
+label: IMAP
+title: ASIMOV IMAP Module
+summary: IMAP email import.
+links:
+  - https://github.com/asimov-modules/asimov-imap-module
+  - https://crates.io/crates/asimov-imap-module
+
+provides:
+  programs:
+    - asimov-imap-cataloger
+
+handles:
+  url_protocols:
+    - imap
+    - imaps
