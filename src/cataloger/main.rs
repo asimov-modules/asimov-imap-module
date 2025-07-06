@@ -3,6 +3,7 @@
 #[cfg(not(feature = "std"))]
 compile_error!("asimov-imap-cataloger requires the 'std' feature");
 
+use asimov_imap_module::ImapReader;
 use asimov_module::SysexitsError::{self, *};
 use clap::Parser;
 use clientele::StandardOptions;
@@ -14,6 +15,9 @@ use std::error::Error;
 struct Options {
     #[clap(flatten)]
     flags: StandardOptions,
+
+    /// The URL of the IMAP server.
+    url: String,
 }
 
 fn main() -> Result<SysexitsError, Box<dyn Error>> {
@@ -42,7 +46,14 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
     #[cfg(feature = "tracing")]
     asimov_module::init_tracing_subscriber(&options.flags).expect("failed to initialize logging");
 
-    println!("asimov-imap-cataloger output"); // TODO
+    // Connect to the IMAP server:
+    let mut reader = ImapReader::open(options.url.parse()?)?;
 
-    Ok(EX_UNAVAILABLE)
+    // Scan the mailbox messages:
+    for entry in reader.iter()? {
+        let email = entry?;
+        println!("{:?}", email); // TODO
+    }
+
+    Ok(EX_OK)
 }

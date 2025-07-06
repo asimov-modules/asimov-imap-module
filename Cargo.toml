@@ -13,7 +13,7 @@ homepage = "https://github.com/asimov-modules"
 repository = "https://github.com/asimov-modules/asimov-imap-module"
 license = "Unlicense"
 keywords = ["asimov-module", "asimov", "ai"]
-categories = ["command-line-utilities", "text-processing"]           # TODO
+categories = ["command-line-utilities", "text-processing"]          # TODO
 publish = true
 
 [features]
@@ -33,6 +33,15 @@ clientele = { version = "0.3.8", default-features = false, features = [
     "clap",
     "std",
 ], optional = true }
+dogma = "0.1.9"
+imap = { version = "3.0.0-alpha.15", default-features = false, features = [
+    "rustls-tls",
+] }
+imap-proto = { version = "0.16", default-features = false }
+known-schemes = "0.1.3"
+rustls = { version = "0.22", default-features = false, features = [
+    "aws_lc_rs",
+] }
 
 [profile.release]
 opt-level = "z"
