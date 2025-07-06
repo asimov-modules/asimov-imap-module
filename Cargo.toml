@@ -19,7 +19,7 @@ publish = true
 [features]
 default = ["all", "cli", "std"]
 all = ["tracing"]
-cli = ["asimov-module/cli", "std", "dep:clap", "dep:clientele"]
+cli = ["asimov-module/cli", "dogma/clap", "std", "dep:clap", "dep:clientele"]
 std = ["asimov-module/std"]
 tracing = ["asimov-module/tracing", "clientele?/tracing"]
 unstable = []
@@ -33,12 +33,12 @@ clientele = { version = "0.3.8", default-features = false, features = [
     "clap",
     "std",
 ], optional = true }
-dogma = "0.1.9"
+dogma = "0.1.11"
 imap = { version = "3.0.0-alpha.15", default-features = false, features = [
     "rustls-tls",
 ] }
 imap-proto = { version = "0.16", default-features = false }
-known-schemes = "0.1.3"
+known-schemes = "0.2"
 rustls = { version = "0.22", default-features = false, features = [
     "aws_lc_rs",
 ] }

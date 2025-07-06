@@ -12,7 +12,7 @@ pub struct ImapReader {
 }
 
 impl ImapReader {
-    pub fn open(uri: dogma::Uri) -> imap::Result<Self> {
+    pub fn open(uri: &dogma::Uri) -> imap::Result<Self> {
         let is_tls = match uri.scheme() {
             UriScheme::Imap => false,
             UriScheme::Imaps => true,

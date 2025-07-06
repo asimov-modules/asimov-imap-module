@@ -289,10 +289,11 @@ dependencies = [
 
 [[package]]
 name = "dogma"
-version = "0.1.9"
+version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b4329b663bcb56cab24a624e8eb2032805e999c3724cd570e3ba1aef5a9d7bb8"
+checksum = "2ba51e88eeeb6858fc7528ed1727f135646230f30c49f2e922b4ffe9c952f9a5"
 dependencies = [
+ "clap",
  "iri-string",
  "known-schemes",
  "serde",
@@ -603,9 +604,14 @@ checksum = "5046ff2073c83a9b05fee82dd1dcfe91b0eafc4cd872cdf398fa8a0efba77c2c"
 
 [[package]]
 name = "known-schemes"
-version = "0.1.3"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "259869726a9a8815473e53d526e1f1e5f7076ac19f3cba0d0b7b48b00e86b649"
+checksum = "5a1880aed2e64661127bf2dfc5714fab26d807ad0efab04660cc4243fa2bc5a9"
+dependencies = [
+ "clap",
+ "iri-string",
+ "serde",
+]
 
 [[package]]
 name = "lazy_static"
