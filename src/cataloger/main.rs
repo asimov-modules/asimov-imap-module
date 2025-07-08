@@ -56,9 +56,12 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
     let mut reader = ImapReader::open(&options.url)?;
 
     // Scan the mailbox messages:
-    for entry in reader.iter()? {
+    for (index, entry) in reader.iter()?.enumerate() {
         let email = entry?;
-        println!("{:?}", email); // TODO
+        if index > 0 {
+            println!();
+        }
+        print!("{}", email.message);
     }
 
     Ok(EX_OK)
