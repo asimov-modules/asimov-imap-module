@@ -21,7 +21,11 @@ struct Options {
     #[clap(flatten)]
     flags: StandardOptions,
 
-    /// The URL of the IMAP server.
+    /// The maximum number of messages to catalog.
+    #[arg(short = 'n', long)]
+    limit: Option<usize>,
+
+    /// The `imap://` or `imaps://` URL of the IMAP mailbox to catalog.
     #[arg(value_parser = UriValueParser::new(&[Imap, Imaps]))]
     url: Uri<'static>,
 }
@@ -56,7 +60,11 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
     let mut reader = ImapReader::open(&options.url)?;
 
     // Scan the mailbox messages:
-    for (index, entry) in reader.iter()?.enumerate() {
+    for (index, entry) in reader
+        .iter()?
+        .take(options.limit.unwrap_or(usize::MAX))
+        .enumerate()
+    {
         let email = entry?;
         if index > 0 {
             println!();
