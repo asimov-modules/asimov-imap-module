@@ -5,6 +5,7 @@ use crate::ImapUrl;
 use super::{ImapIterator, ImapMessage};
 use core::error::Error;
 use imap::{ClientBuilder, ConnectionMode, ImapConnection, Session, TlsKind, types::Mailbox};
+use know::datatypes::EmailMessageId;
 use secrecy::ExposeSecret;
 
 pub struct ImapReader {
@@ -44,5 +45,17 @@ impl ImapReader {
     ) -> imap::Result<impl Iterator<Item = Result<ImapMessage, Box<dyn Error>>>> {
         let fetches = self.session.fetch("1:*", "(UID FLAGS ENVELOPE)")?;
         Ok(ImapIterator::new(fetches))
+    }
+
+    pub fn fetch(&mut self, mid: &EmailMessageId) -> Result<Option<ImapMessage>, Box<dyn Error>> {
+        for entry in self.iter()? {
+            let message = entry?;
+            if let Some(message_id) = message.message.id.as_ref() {
+                if message_id == mid {
+                    return Ok(Some(message));
+                }
+            }
+        }
+        Ok(None)
     }
 }

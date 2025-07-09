@@ -1,7 +1,7 @@
 // This is free and unencumbered software released into the public domain.
 
 #[cfg(not(feature = "std"))]
-compile_error!("asimov-imap-cataloger requires the 'std' feature");
+compile_error!("asimov-imap-fetcher requires the 'std' feature");
 
 use asimov_imap_module::{ImapConfiguration, ImapReader};
 use asimov_module::SysexitsError::{self, *};
@@ -12,26 +12,23 @@ use dogma::{
     UriScheme::{Imap, Imaps},
     UriValueParser,
 };
+use know::datatypes::EmailMessageId;
 use std::error::Error;
 
-/// asimov-imap-cataloger
+/// asimov-imap-fetcher
 #[derive(Debug, Parser)]
 #[command(arg_required_else_help = true)]
 struct Options {
     #[clap(flatten)]
     flags: StandardOptions,
 
-    /// The maximum number of messages to catalog.
-    #[arg(short = 'n', long)]
-    limit: Option<usize>,
-
     /// The output format.
     #[arg(short = 'o', long)]
     output: Option<String>,
 
-    /// An `imaps://user@host:port/mailbox` (or `imap://...`) URL to the IMAP mailbox to catalog.
-    #[arg(id = "IMAP-MAILBOX-URL", value_parser = UriValueParser::new(&[Imap, Imaps]))]
-    mailbox_url: Uri<'static>,
+    /// An `imaps://user@host:port/mailbox#mid` (or `imap://...`) URL to the message to fetch.
+    #[arg(id = "IMAP-MESSAGE-URL", value_parser = UriValueParser::new(&[Imap, Imaps]))]
+    message_url: Uri<'static>,
 }
 
 fn main() -> Result<SysexitsError, Box<dyn Error>> {
@@ -62,23 +59,25 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
 
     // Resolve the authenticated URL:
     let config = ImapConfiguration::load()?;
-    let imap_url = config.resolve_url((&options.mailbox_url).into())?;
+    let imap_url = config.resolve_url((&options.message_url).into())?;
 
     // Connect to the IMAP server:
-    let mut mailbox = ImapReader::open(&imap_url)?;
+    let mut server = ImapReader::open(&imap_url)?;
 
-    // Scan the mailbox messages:
-    for (index, entry) in mailbox
-        .iter()?
-        .take(options.limit.unwrap_or(usize::MAX))
-        .enumerate()
-    {
-        let email = entry?;
-        if index > 0 {
-            println!();
-        }
-        print!("{}", email.message);
+    // Fetch the IMAP message:
+    let message_id: EmailMessageId = options
+        .message_url
+        .fragment_str()
+        .expect("message ID should be given in the URL fragment")
+        .into();
+    match server.fetch(&message_id)? {
+        Some(message) => {
+            print!("{}", message.message);
+            Ok(EX_OK)
+        },
+        None => {
+            eprintln!("message ID <{}> not found", message_id.as_str());
+            Ok(EX_NOINPUT)
+        },
     }
-
-    Ok(EX_OK)
 }

@@ -41,7 +41,7 @@ imap-proto = { version = "0.16", default-features = false }
 rustls = { version = "0.22", default-features = false, features = [
     "aws_lc_rs",
 ] }
-know = { version = "0.1.1", features = ["imap-proto"] }
+know = { version = "0.1.2", features = ["imap-proto"] }
 rust-netrc = "0.1"
 secrecy = "0.10"
 
@@ -53,4 +53,9 @@ lto = "thin"
 [[bin]]
 name = "asimov-imap-cataloger"
 path = "src/cataloger/main.rs"
+required-features = ["cli"]
+
+[[bin]]
+name = "asimov-imap-fetcher"
+path = "src/fetcher/main.rs"
 required-features = ["cli"]

@@ -20,8 +20,8 @@ impl ImapUrl {
     }
 }
 
-impl From<Uri<'_>> for ImapUrl {
-    fn from(url: Uri) -> Self {
+impl From<&Uri<'_>> for ImapUrl {
+    fn from(url: &Uri) -> Self {
         let url_authority = url.authority().unwrap();
         let is_tls = url.scheme() == UriScheme::Imaps;
         let first_segment = url
