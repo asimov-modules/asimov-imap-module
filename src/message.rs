@@ -3,7 +3,7 @@
 use imap::types::Fetch;
 use know::classes::EmailMessage;
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Clone, Debug, Eq, Hash, PartialEq)]
 pub struct ImapMessage {
     pub pos: usize,
     pub uid: Option<u32>,
