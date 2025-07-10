@@ -18,6 +18,6 @@ jobs:
     secrets: inherit
     with:
       update_homebrew_tap: true
-      update_scoop_bucket: true
+      update_scoop_bucket: false
       tweet_release: true
-      build-windows-native: true
+      build-windows: false
