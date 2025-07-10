@@ -13,9 +13,15 @@
 
 ## 🛠️ Prerequisites
 
-- [Rust](https://rust-lang.org) 1.85+ (2024 edition)
+- [Rust] 1.85+ (2024 edition) if building from source code
 
 ## ⬇️ Installation
+
+### Installation with the [ASIMOV CLI]
+
+```bash
+asimov module install imap -v
+```
 
 ### Installation from Source Code
 
@@ -26,7 +32,56 @@ cargo install asimov-imap-module
 ## 👉 Examples
 
 ```bash
+asimov-imap-cataloger imaps://user@host:port/mailbox
+```
+
+```bash
+asimov-imap-fetcher imaps://user@host:port/mailbox#mid
+```
+
+## ⚙ Configuration
+
+This module requires no configuration.
+
+## 📚 Reference
+
+### `asimov-imap-cataloger`
+
+```
 asimov-imap-cataloger
+
+Usage: asimov-imap-cataloger [OPTIONS] <IMAP-MAILBOX-URL>
+
+Arguments:
+  <IMAP-MAILBOX-URL>  An `imaps://user@host:port/mailbox` (or `imap://...`) URL to the IMAP mailbox to catalog
+
+Options:
+  -d, --debug            Enable debugging output
+      --license          Show license information
+  -v, --verbose...       Enable verbose output (may be repeated for more verbosity)
+  -V, --version          Print version information
+  -n, --limit <COUNT>    The maximum number of messages to catalog
+  -o, --output <FORMAT>  The output format
+  -h, --help             Print help
+```
+
+### `asimov-imap-fetcher`
+
+```
+asimov-imap-fetcher
+
+Usage: asimov-imap-fetcher [OPTIONS] <IMAP-MESSAGE-URL>
+
+Arguments:
+  <IMAP-MESSAGE-URL>  An `imaps://user@host:port/mailbox#mid` (or `imap://...`) URL to the message to fetch
+
+Options:
+  -d, --debug            Enable debugging output
+      --license          Show license information
+  -v, --verbose...       Enable verbose output (may be repeated for more verbosity)
+  -V, --version          Print version information
+  -o, --output <FORMAT>  The output format
+  -h, --help             Print help
 ```
 
 ## 👨‍💻 Development
@@ -44,7 +99,9 @@ git clone https://github.com/asimov-modules/asimov-imap-module.git
 [![Share on LinkedIn](https://img.shields.io/badge/share%20on-linkedin-3949AB?logo=linkedin)](https://www.linkedin.com/sharing/share-offsite/?url=https://github.com/asimov-modules/asimov-imap-module)
 
 [ASIMOV]: https://asimov.sh
+[ASIMOV CLI]: https://cli.asimov.sh
 [IMAP]: https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol
 [JSON-LD]: https://json-ld.org
 [KNOW]: https://know.dev
 [RDF]: https://www.w3.org/TR/rdf12-primer/
+[Rust]: https://rust-lang.org
