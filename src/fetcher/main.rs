@@ -72,10 +72,15 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
         .into();
     match server.fetch(&message_id)? {
         Some(message) => {
-            print!("{}", message.headers.mime());
-            if let Some(body) = message.body {
-                println!();
-                print!("{}", body);
+            match options.output_format.unwrap_or_default().as_str() {
+                "jsonld" | "json" => print!("{}", message.headers.jsonld()),
+                "mime" | _ => {
+                    print!("{}", message.headers.mime());
+                    if let Some(body) = message.body {
+                        println!();
+                        print!("{}", body);
+                    }
+                },
             }
             Ok(EX_OK)
         },
