@@ -77,7 +77,7 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
         if index > 0 {
             println!();
         }
-        print!("{}", email.message);
+        print!("{}", email.headers.detailed());
     }
 
     Ok(EX_OK)

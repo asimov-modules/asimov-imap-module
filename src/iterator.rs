@@ -1,6 +1,6 @@
 // This is free and unencumbered software released into the public domain.
 
-use super::ImapMessage;
+use super::{ImapError, ImapMessage};
 use core::error::Error;
 use imap::types::Fetches;
 

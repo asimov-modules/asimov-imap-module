@@ -1,8 +1,6 @@
 // This is free and unencumbered software released into the public domain.
 
-use crate::ImapUrl;
-
-use super::{ImapIterator, ImapMessage};
+use super::{ImapError, ImapIterator, ImapMessage, ImapUrl};
 use core::error::Error;
 use imap::{ClientBuilder, ConnectionMode, ImapConnection, Session, TlsKind, types::Mailbox};
 use know::datatypes::EmailMessageId;
@@ -47,15 +45,21 @@ impl ImapReader {
         Ok(ImapIterator::new(fetches))
     }
 
-    pub fn fetch(&mut self, mid: &EmailMessageId) -> Result<Option<ImapMessage>, Box<dyn Error>> {
-        for entry in self.iter()? {
-            let message = entry?;
-            if let Some(message_id) = message.message.id.as_ref() {
-                if message_id == mid {
-                    return Ok(Some(message));
-                }
-            }
-        }
-        Ok(None)
+    pub fn fetch(&mut self, message_id: &EmailMessageId) -> Result<Option<ImapMessage>, ImapError> {
+        let message_uid = self
+            .session
+            .uid_search(format!("HEADER Message-ID <{}>", message_id.as_str()))?
+            .into_iter()
+            .next();
+        let Some(message_uid) = message_uid else {
+            return Ok(None);
+        };
+        let fetch_results = self
+            .session
+            .uid_fetch(message_uid.to_string(), "(BODY[])")?;
+        let Some(fetch_result) = fetch_results.get(0) else {
+            return Ok(None);
+        };
+        Ok(Some(fetch_result.try_into()?))
     }
 }

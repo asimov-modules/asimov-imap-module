@@ -65,6 +65,7 @@ dependencies = [
  "imap",
  "imap-proto",
  "know",
+ "mail-parser",
  "rust-netrc",
  "rustls",
  "secrecy",
@@ -445,6 +446,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "48c757948c5ede0e46177b7add2e67155f70e33c07fea8284df6576da70b3719"
 
 [[package]]
+name = "encoding_rs"
+version = "0.8.35"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "75030f3c4f45dafd7586dd6780965a8c7e8e285a5ecb86713e63a79c5b2766f3"
+dependencies = [
+ "cfg-if",
+]
+
+[[package]]
 name = "equivalent"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -563,6 +573,17 @@ name = "hashbrown"
 version = "0.15.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5971ac85611da7067dbfcabef3c70ebb5606018acd9e2a3903a0da507521e0d5"
+
+[[package]]
+name = "hashify"
+version = "0.2.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f208758247e68e239acaa059e72e4ce1f30f2a4b6523f19c1b923d25b7e9cceb"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
 
 [[package]]
 name = "heck"
@@ -847,14 +868,15 @@ dependencies = [
 
 [[package]]
 name = "know"
-version = "0.1.2"
+version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "58dcfe414199a65f25121441d7584beb6307b625666e423434abc95c67dd210c"
+checksum = "18631844dbc70ab6475875f4f6a8b32aea1e088ef9f2c4bc87af89dc9adb7fff"
 dependencies = [
  "cfg_eval",
  "imap-proto",
  "iri-string",
  "jiff",
+ "mail-parser",
  "serde",
  "serde_with",
  "thiserror 1.0.69",
@@ -941,6 +963,16 @@ name = "log"
 version = "0.4.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "13dc2df351e3202783a1fe0d44375f7295ffb4049267b0f3018346dc122a1d94"
+
+[[package]]
+name = "mail-parser"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a3e3a04056838aad1ad3f66ef4f7b72a3f33d8c3a8f2664b9363de5383bccaf1"
+dependencies = [
+ "encoding_rs",
+ "hashify",
+]
 
 [[package]]
 name = "memchr"
