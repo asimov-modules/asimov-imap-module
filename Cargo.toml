@@ -25,12 +25,25 @@ unstable = []
 
 # Optional features:
 netrc = ["dep:rust-netrc"]
-pretty = ["know/pretty"]
+pretty = ["know/pretty", "dep:colored_json"]
 tls = []
 tracing = ["asimov-module/tracing", "clientele?/tracing"]
 
 [dependencies]
 asimov-module = { version = "25.0.0-dev.13", default-features = false }
+dogma = { version = "0.1.11", default-features = false, features = ["all"] }
+imap = { version = "3.0.0-alpha.15", default-features = false, features = [
+    "rustls-tls",
+] }
+imap-proto = { version = "0.16", default-features = false }
+know = { version = "0.2.1", features = ["imap-proto", "mail-parser", "serde"] }
+mail-parser = "0.11"
+rustls = { version = "0.22", default-features = false, features = [
+    "aws_lc_rs",
+] }
+secrecy = "0.10"
+
+# Optional integrations:
 clap = { version = "4.5", default-features = false, features = [
     "std",
 ], optional = true }
@@ -38,18 +51,8 @@ clientele = { version = "0.3.8", default-features = false, features = [
     "clap",
     "std",
 ], optional = true }
-dogma = { version = "0.1.11", default-features = false, features = ["all"] }
-imap = { version = "3.0.0-alpha.15", default-features = false, features = [
-    "rustls-tls",
-] }
-imap-proto = { version = "0.16", default-features = false }
-know = { version = "0.2.0", features = ["imap-proto", "mail-parser", "serde"] }
-mail-parser = "0.11"
+colored_json = { version = "5", default-features = false, optional = true }
 rust-netrc = { version = "0.1", optional = true }
-rustls = { version = "0.22", default-features = false, features = [
-    "aws_lc_rs",
-] }
-secrecy = "0.10"
 
 [profile.release]
 opt-level = "z"

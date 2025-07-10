@@ -23,11 +23,11 @@ struct Options {
     flags: StandardOptions,
 
     /// The output format.
-    #[arg(id = "FORMAT", short = 'o', long)]
-    output_format: Option<String>,
+    #[arg(value_name = "FORMAT", short = 'o', long)]
+    output: Option<String>,
 
     /// An `imaps://user@host:port/mailbox#mid` (or `imap://...`) URL to the message to fetch.
-    #[arg(id = "IMAP-MESSAGE-URL", value_parser = UriValueParser::new(&[Imap, Imaps]))]
+    #[arg(value_name = "IMAP-MESSAGE-URL", value_parser = UriValueParser::new(&[Imap, Imaps]))]
     message_url: Uri<'static>,
 }
 
@@ -72,7 +72,7 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
         .into();
     match server.fetch(&message_id)? {
         Some(message) => {
-            match options.output_format.unwrap_or_default().as_str() {
+            match options.output.unwrap_or_default().as_str() {
                 "jsonld" | "json" => print!("{}", message.headers.jsonld()),
                 "mime" | _ => {
                     print!("{}", message.headers.mime());

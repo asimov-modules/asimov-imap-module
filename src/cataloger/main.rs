@@ -22,15 +22,15 @@ struct Options {
     flags: StandardOptions,
 
     /// The maximum number of messages to catalog.
-    #[arg(short = 'n', long)]
+    #[arg(value_name = "COUNT", short = 'n', long)]
     limit: Option<usize>,
 
     /// The output format.
-    #[arg(short = 'o', long)]
+    #[arg(value_name = "FORMAT", short = 'o', long)]
     output: Option<String>,
 
     /// An `imaps://user@host:port/mailbox` (or `imap://...`) URL to the IMAP mailbox to catalog.
-    #[arg(id = "IMAP-MAILBOX-URL", value_parser = UriValueParser::new(&[Imap, Imaps]))]
+    #[arg(value_name = "IMAP-MAILBOX-URL", value_parser = UriValueParser::new(&[Imap, Imaps]))]
     mailbox_url: Uri<'static>,
 }
 
@@ -68,16 +68,36 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
     let mut mailbox = ImapReader::open(&imap_url)?;
 
     // Scan the mailbox messages:
-    for (index, entry) in mailbox
-        .iter()?
-        .take(options.limit.unwrap_or(usize::MAX))
-        .enumerate()
+    let messages = mailbox.iter()?.take(options.limit.unwrap_or(usize::MAX));
+    match options
+        .output
+        .as_ref()
+        .unwrap_or(&String::default())
+        .as_str()
     {
-        let email = entry?;
-        if index > 0 {
-            println!();
-        }
-        print!("{}", email.headers.detailed());
+        "jsonld" | "json" => {
+            use know::traits::ToJsonLd;
+            let mut output = Vec::new();
+            for message in messages {
+                let message = message?;
+                output.push(message.headers.to_jsonld()?);
+            }
+            if cfg!(feature = "pretty") {
+                colored_json::write_colored_json(&output, &mut std::io::stdout())?;
+                println!();
+            } else {
+                todo!() // TODO
+            }
+        },
+        _ => {
+            for (index, message) in messages.enumerate() {
+                let message = message?;
+                if index > 0 {
+                    println!();
+                }
+                print!("{}", message.headers.detailed());
+            }
+        },
     }
 
     Ok(EX_OK)
