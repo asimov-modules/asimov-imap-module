@@ -20,3 +20,4 @@ jobs:
       update_homebrew_tap: true
       update_scoop_bucket: true
       tweet_release: true
+      build-windows-native: true
