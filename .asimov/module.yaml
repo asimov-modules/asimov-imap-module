@@ -11,6 +11,7 @@ links:
 provides:
   programs:
     - asimov-imap-cataloger
+    - asimov-imap-fetcher
 
 handles:
   url_protocols:
