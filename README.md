@@ -31,12 +31,18 @@ cargo install asimov-imap-module
 
 ## 👉 Examples
 
-```bash
-asimov-imap-cataloger imaps://user@host:port/mailbox
-```
+### Email Import from Google Mail (aka Gmail)
+
+#### Cataloging emails in the inbox
 
 ```bash
-asimov-imap-fetcher imaps://user@host:port/mailbox#mid
+asimov-imap-cataloger -n5 imaps://imap.gmail.com/INBOX
+```
+
+#### Fetching a specific email body
+
+```bash
+asimov-imap-fetcher imaps://imap.gmail.com/INBOX#mid
 ```
 
 ## ⚙ Configuration
@@ -80,6 +86,21 @@ password mypassword
 
 ```bash
 asimov-imap-cataloger imaps://host:port/mailbox
+```
+
+### Google Mail Configuration
+
+Authentication credentials can be supplied via the `~/.netrc` (aka
+`$HOME/.netrc`) file, as follows:
+
+```
+machine imap.gmail.com
+login myuser@gmail.com
+password mypassword
+```
+
+```bash
+asimov-imap-cataloger -n5 imaps://imap.gmail.com/INBOX
 ```
 
 ## 📚 Reference
