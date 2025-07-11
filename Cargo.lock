@@ -874,9 +874,9 @@ dependencies = [
 
 [[package]]
 name = "know"
-version = "0.2.1"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d98cd116382f5cdb21f7b06754739011ff60173fe8f1565ba80ae5e3285d5da0"
+checksum = "fc4b5cfcc1d26067fa6339107222f807226a9fdbb3913d287867d2b0a21df561"
 dependencies = [
  "cfg_eval",
  "chrono",
