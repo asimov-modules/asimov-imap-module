@@ -9,8 +9,8 @@
 
 ## ✨ Features
 
-- Supports Gmail, Outlook, Yahoo, iCloud, Proton Mail, GMX, Fastmail, and any
-  other [email provider](#cloud-email-providers) that allows IMAP access.
+- Supports Gmail, Outlook, Yahoo, iCloud, Proton Mail, GMX, Fastmail, and just
+  about any other [email provider](#cloud-email-providers).
 
 ## 🛠️ Prerequisites
 

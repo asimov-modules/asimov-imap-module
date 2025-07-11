@@ -17,3 +17,8 @@ handles:
   url_protocols:
     - imap
     - imaps
+
+uses:
+  env_variables:
+    - ASIMOV_IMAP_USER
+    - ASIMOV_IMAP_PASSWORD
