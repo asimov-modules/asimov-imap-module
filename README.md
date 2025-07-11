@@ -9,7 +9,8 @@
 
 ## ✨ Features
 
-- To be determined!
+- Supports Gmail, Outlook, Yahoo, iCloud, Proton Mail, GMX, Fastmail, and any
+  other [email provider](#cloud-email-providers) that allows IMAP access.
 
 ## 🛠️ Prerequisites
 
@@ -31,7 +32,7 @@ cargo install asimov-imap-module
 
 ## 👉 Examples
 
-### Email Import from Google Mail
+### Email Import from Gmail
 
 #### Cataloging email messages in the inbox
 
@@ -88,9 +89,9 @@ password mypassword
 asimov-imap-cataloger imaps://host:port/mailbox
 ```
 
-### Google Mail Configuration
+### Gmail Configuration
 
-To connect to your Google Mail (aka Gmail) account, follow these steps:
+To connect to your Gmail (aka Google Mail) account, follow these steps:
 
 1. [Enable 2-Step Verification](https://support.google.com/accounts/answer/185839)
    in your account's [Security](https://myaccount.google.com/security)
@@ -112,7 +113,7 @@ The authentication credentials can be configured using any of the
 [aforementioned](#authentication-credentials) methods.
 
 For example, configure the `~/.netrc` (aka `$HOME/.netrc`) file to store your
-Google Mail credentials as follows:
+Gmail credentials as follows:
 
 ```
 machine imap.gmail.com
@@ -128,6 +129,27 @@ asimov-imap-cataloger -n5 imaps://imap.gmail.com/INBOX
 ```
 
 ## 📚 Reference
+
+### Cloud Email Providers
+
+| Provider | Protocol | Username | Hostname | Port |
+| :------- | :------- | :------- | :------- | :--- |
+| Alibaba Mail | `imap:` | `myuser@alibaba.com` | [`imap.alibaba.com`] | 143 |
+| AOL Mail | `imaps:` | `myuser@aol.com` | [`imap.aol.com`] | 993 |
+| Fastmail | `imaps:` | `myuser@fastmail.com` | [`imap.fastmail.com`] | 993 |
+| GMX Mail | `imaps:` | `myuser@gmx.com` | [`imap.gmx.com`] | 993 |
+| Gmail (Google Mail) | `imaps:` | `myuser@gmail.com` | [`imap.gmail.com`] | 993 |
+| iCloud Mail | `imaps:` | `myuser@icloud.com` | [`imap.mail.me.com`] | 993 |
+| Mail.com | `imaps:` | `myuser@mail.com` | [`imap.mail.com`] | 993 |
+| NetEase Mail (163) | `imaps:` | `myuser@163.com` | [`imap.163.com`] | 993 |
+| NetEase Mail (126) | `imaps:` | `myuser@126.com` | [`imap.126.com`] | 993 |
+| Outlook | `imaps:` | `myuser@outlook.com` | [`outlook.office365.com`] | 993 |
+| Proton Mail | `imaps:` | `myuser@proton.me` | `127.0.0.1` | 1143 |
+| QQ Mail | `imaps:` | `myuser@qq.com` | [`imap.qq.com`] | 993 |
+| Sina Mail | `imaps:` | `myuser@sina.com` | [`imap.sina.com`] | 993 |
+| Sohu Mail | `imaps:` | `myuser@sohu.com` | [`imap.sohu.com`] | 993 |
+| Yahoo Mail | `imaps:` | `myuser@yahoo.com` | [`imap.mail.yahoo.com`] | 993 |
+| Zoho Mail | `imaps:` | `myuser@zoho.com` | [`imap.zoho.com`] | 993 |
 
 ### `asimov-imap-cataloger`
 
@@ -189,3 +211,20 @@ git clone https://github.com/asimov-modules/asimov-imap-module.git
 [KNOW]: https://know.dev
 [RDF]: https://www.w3.org/TR/rdf12-primer/
 [Rust]: https://rust-lang.org
+
+[`imap.126.com`]: https://help.mail.126.com/faqDetail.do?code=d7a5dc8471cd0c0e8b4b8f4f8e49998b374173cfe9171305fa1ce630d7f67ac24aac98d1012d23f2
+[`imap.163.com`]: https://help.mail.163.com/faqDetail.do?code=d7a5dc8471cd0c0e8b4b8f4f8e49998b374173cfe9171305fa1ce630d7f67ac24aac98d1012d23f2
+[`imap.alibaba.com`]: https://so.alibaba.com/s/cgs/knowledge?categoryId=93847011&language=zh_CN&m_station=cgs&questionId=dc256e66a1064c65aee1de6f5095bde2
+[`imap.aol.com`]: https://help.aol.com/articles/how-do-i-use-other-email-applications-to-send-and-receive-my-aol-mail
+[`imap.fastmail.com`]: https://www.fastmail.help/hc/en-us/articles/1500000279921-IMAP-POP-and-SMTP
+[`imap.gmail.com`]: https://support.google.com/mail/answer/7126229
+[`imap.gmx.com`]: https://support.gmx.com/pop-imap/imap/server.html
+[`imap.mail.com`]: https://support.mail.com/premium/imap/server.html
+[`imap.mail.me.com`]: https://support.apple.com/en-us/102525
+[`imap.mail.yahoo.com`]: https://help.yahoo.com/kb/SLN4075.html
+[`imap.qq.com`]: https://service.mail.qq.com/detail/128/339
+[`imap.sina.com`]: https://help.sina.com.cn/comquestiondetail/view/1565/
+[`imap.sina.com`]: https://help.sina.com.cn/comquestiondetail/view/1565/
+[`imap.sohu.com`]: https://cloud.tencent.com/developer/article/1800257
+[`imap.zoho.com`]: https://www.zoho.com/mail/help/imap-access.html
+[`outlook.office365.com`]: https://support.microsoft.com/en-us/office/pop-imap-and-smtp-settings-for-outlook-com-d088b986-291d-42b8-9564-9c414e2aa040
