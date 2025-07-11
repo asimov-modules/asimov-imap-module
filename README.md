@@ -31,15 +31,15 @@ cargo install asimov-imap-module
 
 ## 👉 Examples
 
-### Email Import from Google Mail (aka Gmail)
+### Email Import from Google Mail
 
-#### Cataloging emails in the inbox
+#### Cataloging email messages in the inbox
 
 ```bash
 asimov-imap-cataloger -n5 imaps://imap.gmail.com/INBOX
 ```
 
-#### Fetching a specific email body
+#### Fetching a specific email message
 
 ```bash
 asimov-imap-fetcher imaps://imap.gmail.com/INBOX#mid
@@ -90,14 +90,38 @@ asimov-imap-cataloger imaps://host:port/mailbox
 
 ### Google Mail Configuration
 
-Authentication credentials can be supplied via the `~/.netrc` (aka
-`$HOME/.netrc`) file, as follows:
+To connect to your Google Mail (aka Gmail) account, follow these steps:
+
+1. [Enable 2-Step Verification](https://support.google.com/accounts/answer/185839)
+   in your account's [Security](https://myaccount.google.com/security)
+   configuration.
+2. [Create an app password](https://support.google.com/accounts/answer/185833)
+   in your account's [App passwords](https://myaccount.google.com/apppasswords)
+   configuration. (You can enter any app name, such as "ASIMOV".)
+
+Then, construct your IMAP credentials and URL as follows:
+
+- Use the `imaps:` URL scheme for a secure connection.
+- Use your full email address--including `@gmail.com`, `@googlemail.com`,
+  or your own Google Workspace domain name--as the IMAP username.
+- Use the app password your created as the IMAP password.
+- Use `imap.gmail.com` for the IMAP hostname.
+- Use 993 for the IMAP port, or just omit the port altogether.
+
+The authentication credentials can be configured using any of the
+[aforementioned](#authentication-credentials) methods.
+
+For example, configure the `~/.netrc` (aka `$HOME/.netrc`) file to store your
+Google Mail credentials as follows:
 
 ```
 machine imap.gmail.com
 login myuser@gmail.com
-password mypassword
+password myapppassword
 ```
+
+Test your configuration by attempting to list the first five email messages in
+your inbox:
 
 ```bash
 asimov-imap-cataloger -n5 imaps://imap.gmail.com/INBOX
