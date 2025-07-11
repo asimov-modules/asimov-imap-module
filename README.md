@@ -41,7 +41,46 @@ asimov-imap-fetcher imaps://user@host:port/mailbox#mid
 
 ## ⚙ Configuration
 
-This module requires no configuration.
+### Authentication Credentials
+
+Typically, authentication credentials are required to access an IMAP mailbox.
+These can be supplied in three different ways, listed below in order of
+precedence:
+
+#### 1. Configuring credentials in the `imaps:` URL
+
+Authentication credentials can be supplied inline in the URL, as follows:
+
+```bash
+asimov-imap-cataloger imaps://myuser:mypassword@host:port/mailbox
+```
+
+#### 2. Configuring credentials in environment variables
+
+Authentication credentials can also be supplied via environment variables, as
+follows:
+
+```bash
+export ASIMOV_IMAP_USER=myuser
+export ASIMOV_IMAP_PASSWORD=mypassword
+
+asimov-imap-cataloger imaps://host:port/mailbox
+```
+
+#### 3. Configuring credentials in the `~/.netrc` file
+
+Authentication credentials can also be supplied via the `~/.netrc` (aka
+`$HOME/.netrc`) file, as follows:
+
+```
+machine host
+login myuser
+password mypassword
+```
+
+```bash
+asimov-imap-cataloger imaps://host:port/mailbox
+```
 
 ## 📚 Reference
 
