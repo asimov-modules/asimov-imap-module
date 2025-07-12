@@ -3,6 +3,9 @@
 //#![no_std]
 #![forbid(unsafe_code)]
 
+mod capabilities;
+pub use capabilities::*;
+
 mod config;
 pub use config::*;
 

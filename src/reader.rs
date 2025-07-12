@@ -1,14 +1,16 @@
 // This is free and unencumbered software released into the public domain.
 
-use super::{ImapError, ImapIterator, ImapMessage, ImapUrl};
+use super::{ImapCapabilities, ImapError, ImapIterator, ImapMessage, ImapUrl};
+use asimov_module::tracing;
 use core::error::Error;
 use imap::{ClientBuilder, ConnectionMode, ImapConnection, Session, TlsKind, types::Mailbox};
 use know::datatypes::EmailMessageId;
 use secrecy::ExposeSecret;
 
+#[allow(unused)]
 pub struct ImapReader {
     session: Session<Box<dyn ImapConnection + 'static>>,
-    #[allow(unused)]
+    capabilities: ImapCapabilities,
     mailbox: Mailbox,
 }
 
@@ -30,8 +32,15 @@ impl ImapReader {
             )
             .map_err(|e| e.0)?;
 
+        let capabilities = session.capabilities()?.into();
+        tracing::trace!("{:?}", capabilities);
+
         let mailbox = session.select(&url.mailbox)?;
-        Ok(Self { session, mailbox })
+        Ok(Self {
+            session,
+            capabilities,
+            mailbox,
+        })
     }
 
     pub fn close(&mut self) -> imap::Result<()> {
