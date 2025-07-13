@@ -9,14 +9,14 @@ pub use capabilities::*;
 mod config;
 pub use config::*;
 
-mod cursor;
-pub use cursor::*;
-
 mod error;
 pub use error::*;
 
 mod iterator;
 pub use iterator::*;
+
+mod local_cursor;
+pub use local_cursor::*;
 
 mod message;
 pub use message::*;
@@ -26,6 +26,9 @@ pub use options::*;
 
 mod reader;
 pub use reader::*;
+
+mod remote_cursor;
+pub use remote_cursor::*;
 
 mod url;
 pub use url::*;

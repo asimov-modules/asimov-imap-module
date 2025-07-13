@@ -1,7 +1,8 @@
 // This is free and unencumbered software released into the public domain.
 
 use super::{
-    ImapCapabilities, ImapError, ImapIterator, ImapLocalCursor, ImapMessage, ImapOrderBy, ImapUrl,
+    ImapCapabilities, ImapError, ImapIterator, ImapLocalCursor, ImapMessage, ImapOrderBy,
+    ImapRemoteCursor, ImapUrl,
 };
 use asimov_module::tracing;
 use core::error::Error;
@@ -60,26 +61,9 @@ impl ImapReader {
                 ImapIterator::new(self.session.fetch("1:*", fetch_query)?, None)
             },
             (true, _) => {
-                use imap::extensions::sort::SortCharset;
-                let mut uid_set =
-                    self.session
-                        .uid_sort(&[order_by.into()], SortCharset::Utf8, "ALL")?;
-
-                if let Some(limit) = limit {
-                    uid_set.truncate(limit);
-                }
-
-                let mut cursor = String::new();
-                for (i, uid) in uid_set.iter().enumerate() {
-                    use core::fmt::Write;
-                    if i > 0 {
-                        cursor.push(',');
-                    }
-                    write!(&mut cursor, "{}", uid).unwrap();
-                }
-
+                let cursor = ImapRemoteCursor::by(&mut self.session, order_by)?.limit(limit);
                 let fetches = self.session.uid_fetch(cursor.to_string(), fetch_query)?;
-                ImapIterator::new(fetches, None)
+                ImapIterator::new(fetches, Some(cursor.to_vec()))
             },
             (false, ImapOrderBy::Timestamp) => {
                 let cursor = ImapLocalCursor::<i64>::by_timestamp(&mut self.session)?.limit(limit);
