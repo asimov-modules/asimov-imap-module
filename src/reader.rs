@@ -1,6 +1,6 @@
 // This is free and unencumbered software released into the public domain.
 
-use super::{ImapCapabilities, ImapError, ImapIterator, ImapMessage, ImapUrl};
+use super::{ImapCapabilities, ImapError, ImapIterator, ImapMessage, ImapOrderBy, ImapUrl};
 use asimov_module::tracing;
 use core::error::Error;
 use imap::{ClientBuilder, ConnectionMode, ImapConnection, Session, TlsKind, types::Mailbox};
@@ -12,22 +12,6 @@ pub struct ImapReader {
     session: Session<Box<dyn ImapConnection + 'static>>,
     capabilities: ImapCapabilities,
     mailbox: Mailbox,
-}
-
-#[derive(Clone, Debug, Default)]
-#[cfg_attr(feature = "cli", derive(clap::ValueEnum))]
-pub enum ImapOrderBy {
-    /// The default server order
-    #[default]
-    None,
-    /// Sent date and time
-    Date,
-    /// The first From address
-    From,
-    /// The first To address
-    To,
-    /// The first Cc address
-    Cc,
 }
 
 impl ImapReader {
@@ -68,15 +52,13 @@ impl ImapReader {
         order_by: ImapOrderBy,
         limit: Option<usize>,
     ) -> imap::Result<impl Iterator<Item = Result<ImapMessage, Box<dyn Error>>>> {
-        let fetches = match (order_by, self.capabilities.sort) {
+        let fetches = match (&order_by, self.capabilities.sort) {
             (ImapOrderBy::None, _) => self.session.fetch("1:*", "(UID FLAGS ENVELOPE)")?,
-            (ImapOrderBy::Date, true) => {
-                use imap::extensions::sort::{SortCharset, SortCriterion};
-                let mut uid_set = self.session.uid_sort(
-                    &[SortCriterion::Reverse(&SortCriterion::Arrival)],
-                    SortCharset::Utf8,
-                    "ALL",
-                )?;
+            (ImapOrderBy::Timestamp, true) => {
+                use imap::extensions::sort::SortCharset;
+                let mut uid_set =
+                    self.session
+                        .uid_sort(&[order_by.into()], SortCharset::Utf8, "ALL")?;
 
                 if let Some(limit) = limit {
                     uid_set.truncate(limit);
@@ -93,7 +75,7 @@ impl ImapReader {
 
                 self.session.uid_fetch(uid_buffer, "(UID FLAGS ENVELOPE)")?
             },
-            (ImapOrderBy::Date, false) => {
+            (ImapOrderBy::Timestamp, false) => {
                 let mut timestamp_to_uid: Vec<(i64, u32)> = Vec::new();
                 let fetches = self.session.fetch("1:*", "(UID INTERNALDATE)")?;
                 for fetch in fetches.iter() {
@@ -119,9 +101,11 @@ impl ImapReader {
 
                 self.session.uid_fetch(uid_buffer, "(UID FLAGS ENVELOPE)")?
             },
+            (ImapOrderBy::Date, _) => todo!(), // TODO
             (ImapOrderBy::From, _) => todo!(), // TODO
             (ImapOrderBy::To, _) => todo!(),   // TODO
             (ImapOrderBy::Cc, _) => todo!(),   // TODO
+            (ImapOrderBy::Size, _) => todo!(), // TODO
         };
         Ok(ImapIterator::new(fetches))
     }

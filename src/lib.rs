@@ -18,6 +18,9 @@ pub use iterator::*;
 mod message;
 pub use message::*;
 
+mod options;
+pub use options::*;
+
 mod reader;
 pub use reader::*;
 
