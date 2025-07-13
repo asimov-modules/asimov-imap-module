@@ -9,6 +9,9 @@ pub use capabilities::*;
 mod config;
 pub use config::*;
 
+mod cursor;
+pub use cursor::*;
+
 mod error;
 pub use error::*;
 

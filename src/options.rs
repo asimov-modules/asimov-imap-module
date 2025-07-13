@@ -9,10 +9,10 @@ pub enum ImapOrderBy {
     #[default]
     None,
 
-    /// Received date and time
+    /// The server's received date and time
     Timestamp,
 
-    /// Sent date and time
+    /// The sender's sent date and time
     Date,
 
     /// The first From address

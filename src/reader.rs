@@ -1,6 +1,8 @@
 // This is free and unencumbered software released into the public domain.
 
-use super::{ImapCapabilities, ImapError, ImapIterator, ImapMessage, ImapOrderBy, ImapUrl};
+use super::{
+    ImapCapabilities, ImapError, ImapIterator, ImapLocalCursor, ImapMessage, ImapOrderBy, ImapUrl,
+};
 use asimov_module::tracing;
 use core::error::Error;
 use imap::{ClientBuilder, ConnectionMode, ImapConnection, Session, TlsKind, types::Mailbox};
@@ -52,9 +54,10 @@ impl ImapReader {
         order_by: ImapOrderBy,
         limit: Option<usize>,
     ) -> imap::Result<impl Iterator<Item = Result<ImapMessage, Box<dyn Error>>>> {
-        let fetches = match (&order_by, self.capabilities.sort) {
-            (ImapOrderBy::None, _) => self.session.fetch("1:*", "(UID FLAGS ENVELOPE)")?,
-            (ImapOrderBy::Timestamp, true) => {
+        let fetch_query = "(UID FLAGS ENVELOPE)";
+        let fetches = match (self.capabilities.sort, &order_by) {
+            (_, ImapOrderBy::None) => self.session.fetch("1:*", fetch_query)?,
+            (true, _) => {
                 use imap::extensions::sort::SortCharset;
                 let mut uid_set =
                     self.session
@@ -64,48 +67,41 @@ impl ImapReader {
                     uid_set.truncate(limit);
                 }
 
-                let mut uid_buffer = String::new();
+                let mut cursor = String::new();
                 for (i, uid) in uid_set.iter().enumerate() {
                     use core::fmt::Write;
                     if i > 0 {
-                        uid_buffer.push(',');
+                        cursor.push(',');
                     }
-                    write!(&mut uid_buffer, "{}", uid).unwrap();
+                    write!(&mut cursor, "{}", uid).unwrap();
                 }
 
-                self.session.uid_fetch(uid_buffer, "(UID FLAGS ENVELOPE)")?
+                self.session.uid_fetch(cursor.to_string(), fetch_query)?
             },
-            (ImapOrderBy::Timestamp, false) => {
-                let mut timestamp_to_uid: Vec<(i64, u32)> = Vec::new();
-                let fetches = self.session.fetch("1:*", "(UID INTERNALDATE)")?;
-                for fetch in fetches.iter() {
-                    let uid = fetch.uid.unwrap();
-                    let timestamp = fetch.internal_date().unwrap().timestamp_millis();
-                    timestamp_to_uid.push((timestamp, uid));
-                }
-                timestamp_to_uid.sort();
-                timestamp_to_uid.reverse();
-
-                if let Some(limit) = limit {
-                    timestamp_to_uid.truncate(limit);
-                }
-
-                let mut uid_buffer = String::new();
-                for (i, (_, uid)) in timestamp_to_uid.iter().enumerate() {
-                    use core::fmt::Write;
-                    if i > 0 {
-                        uid_buffer.push(',');
-                    }
-                    write!(&mut uid_buffer, "{}", uid).unwrap();
-                }
-
-                self.session.uid_fetch(uid_buffer, "(UID FLAGS ENVELOPE)")?
+            (false, ImapOrderBy::Timestamp) => {
+                let cursor = ImapLocalCursor::<i64>::by_timestamp(&mut self.session)?.limit(limit);
+                self.session.uid_fetch(cursor.to_string(), fetch_query)?
             },
-            (ImapOrderBy::Date, _) => todo!(), // TODO
-            (ImapOrderBy::From, _) => todo!(), // TODO
-            (ImapOrderBy::To, _) => todo!(),   // TODO
-            (ImapOrderBy::Cc, _) => todo!(),   // TODO
-            (ImapOrderBy::Size, _) => todo!(), // TODO
+            (false, ImapOrderBy::Date) => {
+                let cursor = ImapLocalCursor::<i64>::by_date(&mut self.session)?.limit(limit);
+                self.session.uid_fetch(cursor.to_string(), fetch_query)?
+            },
+            (false, ImapOrderBy::From) => {
+                let cursor = ImapLocalCursor::<String>::by_from(&mut self.session)?.limit(limit);
+                self.session.uid_fetch(cursor.to_string(), fetch_query)?
+            },
+            (false, ImapOrderBy::To) => {
+                let cursor = ImapLocalCursor::<String>::by_to(&mut self.session)?.limit(limit);
+                self.session.uid_fetch(cursor.to_string(), fetch_query)?
+            },
+            (false, ImapOrderBy::Cc) => {
+                let cursor = ImapLocalCursor::<String>::by_cc(&mut self.session)?.limit(limit);
+                self.session.uid_fetch(cursor.to_string(), fetch_query)?
+            },
+            (false, ImapOrderBy::Size) => {
+                let cursor = ImapLocalCursor::<usize>::by_size(&mut self.session)?.limit(limit);
+                self.session.uid_fetch(cursor.to_string(), fetch_query)?
+            },
         };
         Ok(ImapIterator::new(fetches))
     }
