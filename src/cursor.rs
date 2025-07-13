@@ -1,6 +1,7 @@
 // This is free and unencumbered software released into the public domain.
 
 use imap::{ImapConnection, Session};
+use know::datatypes::EmailAddress;
 
 #[derive(Clone, Debug, Default)]
 pub struct ImapLocalCursor<T> {
@@ -27,17 +28,17 @@ impl<T> ImapLocalCursor<T> {
         session: &mut Session<Box<dyn ImapConnection + 'static>>,
     ) -> imap::error::Result<ImapLocalCursor<i64>> {
         let mut val_to_uid = vec![];
-        let fetches = session.fetch("1:*", "(UID ENVELOPE)")?;
+        let fetches = session.fetch("1:*", "(UID ENVELOPE)")?; // TODO: optimize
         for fetch in fetches.iter() {
             let uid = fetch.uid.unwrap();
             let Some(date_header) = fetch.envelope().unwrap().date.as_ref() else {
-                continue; // skip messages without a date
+                continue; // skip messages without a `Date:` header
             };
             let Ok(date) = core::str::from_utf8(date_header) else {
-                continue; // skip messages with invalid UTF-8 in the date
+                continue; // skip messages with invalid UTF-8 in the header
             };
             let Ok(datetime) = jiff::fmt::rfc2822::parse(date) else {
-                continue; // skip messages with an invalid date
+                continue; // skip messages with an invalid `Date:` header
             };
             let timestamp = datetime.timestamp().as_millisecond();
             val_to_uid.push((timestamp, uid));
@@ -48,21 +49,69 @@ impl<T> ImapLocalCursor<T> {
     }
 
     pub fn by_from(
-        _session: &mut Session<Box<dyn ImapConnection + 'static>>,
+        session: &mut Session<Box<dyn ImapConnection + 'static>>,
     ) -> imap::error::Result<ImapLocalCursor<String>> {
-        todo!()
+        let mut val_to_uid = vec![];
+        let fetches = session.fetch("1:*", "(UID ENVELOPE)")?; // TODO: optimize
+        for fetch in fetches.iter() {
+            let uid = fetch.uid.unwrap();
+            let Some(from_header) = fetch.envelope().unwrap().from.as_ref() else {
+                continue; // skip messages without a `From:` header
+            };
+            let Some(from) = from_header.iter().next() else {
+                continue; // skip messages without a `From:` address
+            };
+            let Ok(email) = EmailAddress::try_from(from) else {
+                continue; // skip messages with invalid email addresses
+            };
+            val_to_uid.push((email.into(), uid));
+        }
+        val_to_uid.sort();
+        Ok(ImapLocalCursor { val_to_uid })
     }
 
     pub fn by_to(
-        _session: &mut Session<Box<dyn ImapConnection + 'static>>,
+        session: &mut Session<Box<dyn ImapConnection + 'static>>,
     ) -> imap::error::Result<ImapLocalCursor<String>> {
-        todo!()
+        let mut val_to_uid = vec![];
+        let fetches = session.fetch("1:*", "(UID ENVELOPE)")?; // TODO: optimize
+        for fetch in fetches.iter() {
+            let uid = fetch.uid.unwrap();
+            let Some(from_header) = fetch.envelope().unwrap().to.as_ref() else {
+                continue; // skip messages without a `To:` header
+            };
+            let Some(from) = from_header.iter().next() else {
+                continue; // skip messages without a `To:` address
+            };
+            let Ok(email) = EmailAddress::try_from(from) else {
+                continue; // skip messages with invalid email addresses
+            };
+            val_to_uid.push((email.into(), uid));
+        }
+        val_to_uid.sort();
+        Ok(ImapLocalCursor { val_to_uid })
     }
 
     pub fn by_cc(
-        _session: &mut Session<Box<dyn ImapConnection + 'static>>,
+        session: &mut Session<Box<dyn ImapConnection + 'static>>,
     ) -> imap::error::Result<ImapLocalCursor<String>> {
-        todo!()
+        let mut val_to_uid = vec![];
+        let fetches = session.fetch("1:*", "(UID ENVELOPE)")?; // TODO: optimize
+        for fetch in fetches.iter() {
+            let uid = fetch.uid.unwrap();
+            let Some(from_header) = fetch.envelope().unwrap().cc.as_ref() else {
+                continue; // skip messages without a `Cc:` header
+            };
+            let Some(from) = from_header.iter().next() else {
+                continue; // skip messages without a `Cc:` address
+            };
+            let Ok(email) = EmailAddress::try_from(from) else {
+                continue; // skip messages with invalid email addresses
+            };
+            val_to_uid.push((email.into(), uid));
+        }
+        val_to_uid.sort();
+        Ok(ImapLocalCursor { val_to_uid })
     }
 
     pub fn by_size(
@@ -76,6 +125,7 @@ impl<T> ImapLocalCursor<T> {
             val_to_uid.push((size, uid));
         }
         val_to_uid.sort();
+        val_to_uid.reverse();
         Ok(ImapLocalCursor { val_to_uid })
     }
 
