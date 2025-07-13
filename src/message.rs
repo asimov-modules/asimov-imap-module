@@ -33,16 +33,20 @@ impl TryFrom<&Fetch<'_>> for ImapMessage {
                     body: message.body_text(0).map(|s| s.into_owned()),
                 }
             },
-            None => Self {
-                pos: input.message as _,
-                uid: input.uid,
-                size: input.size,
-                headers: input
-                    .envelope()
-                    .unwrap()
-                    .try_into()
-                    .map_err(|_| ImapError::InvalidHeaders)?,
-                body: None,
+            None => {
+                let envelope = input.envelope().unwrap();
+                let mut headers: EmailMessage =
+                    envelope.try_into().map_err(|_| ImapError::InvalidHeaders)?;
+                if let Some(subject_bytes) = envelope.subject.as_ref() {
+                    headers.subject = rfc2047_decoder::decode(subject_bytes).ok();
+                }
+                Self {
+                    pos: input.message as _,
+                    uid: input.uid,
+                    size: input.size,
+                    headers,
+                    body: None,
+                }
             },
         })
     }
