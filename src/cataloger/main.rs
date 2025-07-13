@@ -3,7 +3,7 @@
 #[cfg(not(feature = "std"))]
 compile_error!("asimov-imap-cataloger requires the 'std' feature");
 
-use asimov_imap_module::{ImapConfiguration, ImapReader};
+use asimov_imap_module::{ImapConfiguration, ImapOrderBy, ImapReader};
 use asimov_module::SysexitsError::{self, *};
 use clap::Parser;
 use clientele::StandardOptions;
@@ -20,6 +20,17 @@ use std::error::Error;
 struct Options {
     #[clap(flatten)]
     flags: StandardOptions,
+
+    /// The message property to order messages by.
+    #[arg(
+        value_name = "PROPERTY",
+        short = 'b',
+        long,
+        alias = "order",
+        default_value_t,
+        value_enum
+    )]
+    order_by: ImapOrderBy,
 
     /// The maximum number of messages to catalog.
     #[arg(value_name = "COUNT", short = 'n', long)]
@@ -68,7 +79,8 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
     let mut mailbox = ImapReader::open(&imap_url)?;
 
     // Scan the mailbox messages:
-    let messages = mailbox.iter()?.take(options.limit.unwrap_or(usize::MAX));
+    let messages = mailbox.iter(options.order_by)?;
+    let messages = messages.take(options.limit.unwrap_or(usize::MAX));
     match options
         .output
         .as_ref()

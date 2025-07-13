@@ -14,6 +14,22 @@ pub struct ImapReader {
     mailbox: Mailbox,
 }
 
+#[derive(Clone, Debug, Default)]
+#[cfg_attr(feature = "cli", derive(clap::ValueEnum))]
+pub enum ImapOrderBy {
+    /// The default server order
+    #[default]
+    None,
+    /// Sent date and time
+    Date,
+    /// The first From address
+    From,
+    /// The first To address
+    To,
+    /// The first Cc address
+    Cc,
+}
+
 impl ImapReader {
     pub fn open(url: &ImapUrl) -> imap::Result<Self> {
         let client = ClientBuilder::new(&url.host, url.port)
@@ -49,8 +65,15 @@ impl ImapReader {
 
     pub fn iter(
         &mut self,
+        order_by: ImapOrderBy,
     ) -> imap::Result<impl Iterator<Item = Result<ImapMessage, Box<dyn Error>>>> {
-        let fetches = self.session.fetch("1:*", "(UID FLAGS ENVELOPE)")?;
+        let fetches = match order_by {
+            ImapOrderBy::None => self.session.fetch("1:*", "(UID FLAGS ENVELOPE)")?,
+            ImapOrderBy::Date => todo!(), // TODO
+            ImapOrderBy::From => todo!(), // TODO
+            ImapOrderBy::To => todo!(),   // TODO
+            ImapOrderBy::Cc => todo!(),   // TODO
+        };
         Ok(ImapIterator::new(fetches))
     }
 
