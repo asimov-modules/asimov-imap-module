@@ -79,7 +79,7 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
     let mut mailbox = ImapReader::open(&imap_url)?;
 
     // Scan the mailbox messages:
-    let messages = mailbox.iter(options.order_by)?;
+    let messages = mailbox.iter(options.order_by, options.limit)?;
     let messages = messages.take(options.limit.unwrap_or(usize::MAX));
     match options
         .output

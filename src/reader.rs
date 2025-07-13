@@ -66,10 +66,36 @@ impl ImapReader {
     pub fn iter(
         &mut self,
         order_by: ImapOrderBy,
+        limit: Option<usize>,
     ) -> imap::Result<impl Iterator<Item = Result<ImapMessage, Box<dyn Error>>>> {
         let fetches = match order_by {
             ImapOrderBy::None => self.session.fetch("1:*", "(UID FLAGS ENVELOPE)")?,
-            ImapOrderBy::Date => todo!(), // TODO
+            ImapOrderBy::Date => {
+                let mut timestamp_to_uid: Vec<(i64, u32)> = Vec::new();
+                let fetches = self.session.fetch("1:*", "(UID INTERNALDATE)")?;
+                for fetch in fetches.iter() {
+                    let uid = fetch.uid.unwrap();
+                    let timestamp = fetch.internal_date().unwrap().timestamp_millis();
+                    timestamp_to_uid.push((timestamp, uid));
+                }
+                timestamp_to_uid.sort();
+                timestamp_to_uid.reverse();
+
+                if let Some(limit) = limit {
+                    timestamp_to_uid.truncate(limit);
+                }
+
+                let mut uid_set = String::new();
+                for (i, (_, uid)) in timestamp_to_uid.iter().enumerate() {
+                    use core::fmt::Write;
+                    if i > 0 {
+                        uid_set.push(',');
+                    }
+                    write!(&mut uid_set, "{}", uid).unwrap();
+                }
+
+                self.session.uid_fetch(uid_set, "(UID FLAGS ENVELOPE)")?
+            },
             ImapOrderBy::From => todo!(), // TODO
             ImapOrderBy::To => todo!(),   // TODO
             ImapOrderBy::Cc => todo!(),   // TODO
