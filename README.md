@@ -9,8 +9,13 @@
 
 ## ✨ Features
 
+- Fetches email messages from any IMAP server and outputs them as [JSON-LD].
+- Constructs a semantic knowledge graph based on the [KNOW] ontology.
 - Supports Gmail, Outlook, Yahoo, iCloud, Proton Mail, GMX, Fastmail, and just
   about any other [email provider](#cloud-email-providers).
+- Utilizes server-side sorting of email messages with servers that support it.
+- Implements optimal client-side sorting when server-side sorting isn't available.
+- Distributed as a standalone static binary with zero runtime dependencies.
 
 ## 🛠️ Prerequisites
 
@@ -37,7 +42,7 @@ cargo install asimov-imap-module
 #### Cataloging email messages in the inbox
 
 ```bash
-asimov-imap-cataloger -n5 imaps://imap.gmail.com/INBOX
+asimov-imap-cataloger imaps://imap.gmail.com/INBOX -n5
 ```
 
 #### Fetching a specific email message
@@ -125,7 +130,7 @@ Test your configuration by attempting to list the first five email messages in
 your inbox:
 
 ```bash
-asimov-imap-cataloger -n5 imaps://imap.gmail.com/INBOX
+asimov-imap-cataloger imaps://imap.gmail.com/INBOX -n5
 ```
 
 ## 📚 Reference
@@ -162,13 +167,14 @@ Arguments:
   <IMAP-MAILBOX-URL>  An `imaps://user@host:port/mailbox` (or `imap://...`) URL to the IMAP mailbox to catalog
 
 Options:
-  -d, --debug            Enable debugging output
-      --license          Show license information
-  -v, --verbose...       Enable verbose output (may be repeated for more verbosity)
-  -V, --version          Print version information
-  -n, --limit <COUNT>    The maximum number of messages to catalog
-  -o, --output <FORMAT>  The output format
-  -h, --help             Print help
+  -d, --debug                Enable debugging output
+      --license              Show license information
+  -v, --verbose...           Enable verbose output (may be repeated for more verbosity)
+  -V, --version              Print version information
+  -b, --order-by <PROPERTY>  The message property to order messages by [default: none] [possible values: none, timestamp, date, from, to, cc, size]
+  -n, --limit <COUNT>        The maximum number of messages to catalog
+  -o, --output <FORMAT>      The output format
+  -h, --help                 Print help (see more with '--help')
 ```
 
 ### `asimov-imap-fetcher`
