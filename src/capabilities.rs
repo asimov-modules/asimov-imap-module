@@ -48,7 +48,7 @@ impl From<imap::types::Capabilities> for ImapCapabilities {
                     "LIST-STATUS" => output.list_status = true,
                     "SORT" => output.sort = true,
                     "UIDONLY" => output.uidonly = true,
-                    "UTF8=ACCEPT" => output.utf8_accept = true,
+                    "UTF8=ACCEPT" | "UTF8=ONLY" => output.utf8_accept = true,
                     "X-GM-EXT-1" => output.x_gm_ext_1 = true,
                     _ => {},
                 },

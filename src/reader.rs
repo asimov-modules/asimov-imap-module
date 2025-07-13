@@ -35,8 +35,14 @@ impl ImapReader {
             )
             .map_err(|e| e.0)?;
 
-        let capabilities = session.capabilities()?.into();
+        let capabilities: ImapCapabilities = session.capabilities()?.into();
         tracing::trace!("{:?}", capabilities);
+
+        if capabilities.utf8_accept {
+            // This is for now blocked by a decoding bug in the `imap` crate.
+            // See: https://github.com/jonhoo/rust-imap/issues/311
+            //session.run_command_and_check_ok("ENABLE UTF8=ACCEPT")?;
+        }
 
         let mailbox = session.select(&url.mailbox)?;
         Ok(Self {
