@@ -65,6 +65,7 @@ dependencies = [
  "dogma",
  "imap",
  "imap-proto",
+ "jiff",
  "know",
  "mail-parser",
  "rust-netrc",

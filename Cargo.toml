@@ -36,6 +36,7 @@ imap = { version = "3.0.0-alpha.15", default-features = false, features = [
     "rustls-tls",
 ] }
 imap-proto = { version = "0.16", default-features = false }
+jiff = { version = "0.2", default-features = false }
 know = { version = "0.2.2", features = ["imap-proto", "mail-parser", "serde"] }
 mail-parser = "0.11"
 rustls = { version = "0.22", default-features = false, features = [
