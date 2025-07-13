@@ -68,9 +68,32 @@ impl ImapReader {
         order_by: ImapOrderBy,
         limit: Option<usize>,
     ) -> imap::Result<impl Iterator<Item = Result<ImapMessage, Box<dyn Error>>>> {
-        let fetches = match order_by {
-            ImapOrderBy::None => self.session.fetch("1:*", "(UID FLAGS ENVELOPE)")?,
-            ImapOrderBy::Date => {
+        let fetches = match (order_by, self.capabilities.sort) {
+            (ImapOrderBy::None, _) => self.session.fetch("1:*", "(UID FLAGS ENVELOPE)")?,
+            (ImapOrderBy::Date, true) => {
+                use imap::extensions::sort::{SortCharset, SortCriterion};
+                let mut uid_set = self.session.uid_sort(
+                    &[SortCriterion::Reverse(&SortCriterion::Arrival)],
+                    SortCharset::Utf8,
+                    "ALL",
+                )?;
+
+                if let Some(limit) = limit {
+                    uid_set.truncate(limit);
+                }
+
+                let mut uid_buffer = String::new();
+                for (i, uid) in uid_set.iter().enumerate() {
+                    use core::fmt::Write;
+                    if i > 0 {
+                        uid_buffer.push(',');
+                    }
+                    write!(&mut uid_buffer, "{}", uid).unwrap();
+                }
+
+                self.session.uid_fetch(uid_buffer, "(UID FLAGS ENVELOPE)")?
+            },
+            (ImapOrderBy::Date, false) => {
                 let mut timestamp_to_uid: Vec<(i64, u32)> = Vec::new();
                 let fetches = self.session.fetch("1:*", "(UID INTERNALDATE)")?;
                 for fetch in fetches.iter() {
@@ -85,20 +108,20 @@ impl ImapReader {
                     timestamp_to_uid.truncate(limit);
                 }
 
-                let mut uid_set = String::new();
+                let mut uid_buffer = String::new();
                 for (i, (_, uid)) in timestamp_to_uid.iter().enumerate() {
                     use core::fmt::Write;
                     if i > 0 {
-                        uid_set.push(',');
+                        uid_buffer.push(',');
                     }
-                    write!(&mut uid_set, "{}", uid).unwrap();
+                    write!(&mut uid_buffer, "{}", uid).unwrap();
                 }
 
-                self.session.uid_fetch(uid_set, "(UID FLAGS ENVELOPE)")?
+                self.session.uid_fetch(uid_buffer, "(UID FLAGS ENVELOPE)")?
             },
-            ImapOrderBy::From => todo!(), // TODO
-            ImapOrderBy::To => todo!(),   // TODO
-            ImapOrderBy::Cc => todo!(),   // TODO
+            (ImapOrderBy::From, _) => todo!(), // TODO
+            (ImapOrderBy::To, _) => todo!(),   // TODO
+            (ImapOrderBy::Cc, _) => todo!(),   // TODO
         };
         Ok(ImapIterator::new(fetches))
     }
