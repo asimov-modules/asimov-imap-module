@@ -40,6 +40,7 @@ impl ImapReader {
 
         if capabilities.utf8_accept {
             // This is for now blocked by a decoding bug in the `imap` crate.
+            // See: https://github.com/asimov-modules/asimov-imap-module/issues/3
             // See: https://github.com/jonhoo/rust-imap/issues/311
             //session.run_command_and_check_ok("ENABLE UTF8=ACCEPT")?;
         }
