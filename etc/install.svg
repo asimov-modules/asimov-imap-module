@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="terminal" baseProfile="full" viewBox="0 0 800 512" width="800" version="1.1">
+    <defs>
+        <termtosvg:template_settings xmlns:termtosvg="https://github.com/nbedos/termtosvg">
+            <termtosvg:screen_geometry columns="100" rows="30"/>
+            <termtosvg:animation type="css"/>
+        </termtosvg:template_settings>
+        <style type="text/css" id="generated-style"><![CDATA[#screen {
+                font-family: 'DejaVu Sans Mono', monospace;
+                font-style: normal;
+                font-size: 14px;
+            }
+
+        text {
+            dominant-baseline: text-before-edge;
+            white-space: pre;
+        }
+    
+            :root {
+                --animation-duration: 21660ms;
+            }
+
+            @keyframes roll {
+                0.000%{transform:translateY(0px)}
+0.060%{transform:translateY(-544px)}
+0.078%{transform:translateY(-1088px)}
+1.394%{transform:translateY(-1632px)}
+2.364%{transform:translateY(-2176px)}
+2.424%{transform:translateY(-2720px)}
+2.784%{transform:translateY(-3264px)}
+3.753%{transform:translateY(-3808px)}
+4.548%{transform:translateY(-4352px)}
+4.765%{transform:translateY(-4896px)}
+4.861%{transform:translateY(-5440px)}
+5.249%{transform:translateY(-5984px)}
+5.402%{transform:translateY(-6528px)}
+5.822%{transform:translateY(-7072px)}
+6.108%{transform:translateY(-7616px)}
+6.851%{transform:translateY(-8160px)}
+7.253%{transform:translateY(-8704px)}
+7.576%{transform:translateY(-9248px)}
+8.102%{transform:translateY(-9792px)}
+8.730%{transform:translateY(-10336px)}
+8.823%{transform:translateY(-10880px)}
+9.755%{transform:translateY(-11424px)}
+10.337%{transform:translateY(-11968px)}
+10.734%{transform:translateY(-12512px)}
+10.813%{transform:translateY(-13056px)}
+11.325%{transform:translateY(-13600px)}
+11.427%{transform:translateY(-14144px)}
+12.054%{transform:translateY(-14688px)}
+12.595%{transform:translateY(-15232px)}
+12.835%{transform:translateY(-15776px)}
+13.126%{transform:translateY(-16320px)}
+13.560%{transform:translateY(-16864px)}
+14.104%{transform:translateY(-17408px)}
+18.892%{transform:translateY(-17952px)}
+41.500%{transform:translateY(-18496px)}
+47.645%{transform:translateY(-19040px)}
+48.463%{transform:translateY(-19584px)}
+48.767%{transform:translateY(-20128px)}
+48.790%{transform:translateY(-20672px)}
+48.795%{transform:translateY(-21216px)}
+95.383%{transform:translateY(-21760px)}
+100.000%{transform:translateY(-21760px)}
+            }
+
+            #screen_view {
+                animation-duration: 21660ms;
+                animation-iteration-count:infinite;
+                animation-name:roll;
+                animation-timing-function: steps(1,end);
+                animation-fill-mode: forwards;
+            }
+        ]]></style>
+        <style type="text/css" id="user-style">
+/* Dracula Theme Colors for termtosvg
+               Based on https://draculatheme.com/contribute */
+.foreground {
+    fill: #f8f8f2;
+}
+.background {
+    fill: #282a36;
+}
+.color0 {
+    fill: #21222c;
+}
+.color1 {
+    fill: #ff5555;
+}
+.color2 {
+    fill: #50fa7b;
+}
+.color3 {
+    fill: #f1fa8c;
+}
+.color4 {
+    fill: #bd93f9;
+}
+.color5 {
+    fill: #ff79c6;
+}
+.color6 {
+    fill: #8be9fd;
+}
+.color7 {
+    fill: #f8f8f2;
+}
+.color8 {
+    fill: #6272a4;
+}
+.color9 {
+    fill: #ff6e6e;
+}
+.color10 {
+    fill: #69ff94;
+}
+.color11 {
+    fill: #ffffa5;
+}
+.color12 {
+    fill: #d6acff;
+}
+.color13 {
+    fill: #ff92df;
+}
+.color14 {
+    fill: #a4ffff;
+}
+.color15 {
+    fill: #ffffff;
+}
+        </style>
+    </defs>
+    <svg id="screen" width="800" height="510" viewBox="0 0 800 510" preserveAspectRatio="xMidYMin slice">
+    <rect class="background" height="100%" width="100%" x="0" y="0"/><defs><g id="g1"><text x="0" textLength="8" class="background"> </text></g><g id="g2"><text x="0" textLength="8" class="background"> </text><text x="8" textLength="792" class="foreground">                                                                                                   </text></g><g id="g3"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="8" class="foreground"> </text><text x="160" textLength="8" class="background"> </text><text x="168" textLength="632" class="foreground">                                                                               </text></g><g id="g4"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="16" class="foreground"> a</text><text x="168" textLength="8" class="background"> </text><text x="176" textLength="624" class="foreground">                                                                              </text></g><g id="g5"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="24" class="foreground"> as</text><text x="176" textLength="8" class="background"> </text><text x="184" textLength="616" class="foreground">                                                                             </text></g><g id="g6"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="32" class="foreground"> asi</text><text x="184" textLength="8" class="background"> </text><text x="192" textLength="608" class="foreground">                                                                            </text></g><g id="g7"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="40" class="foreground"> asim</text><text x="192" textLength="8" class="background"> </text><text x="200" textLength="600" class="foreground">                                                                           </text></g><g id="g8"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="48" class="foreground"> asimo</text><text x="200" textLength="8" class="background"> </text><text x="208" textLength="592" class="foreground">                                                                          </text></g><g id="g9"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="56" class="foreground"> asimov</text><text x="208" textLength="8" class="background"> </text><text x="216" textLength="584" class="foreground">                                                                         </text></g><g id="g10"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="64" class="foreground"> asimov </text><text x="216" textLength="8" class="background"> </text><text x="224" textLength="576" class="foreground">                                                                        </text></g><g id="g11"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="72" class="foreground"> asimov m</text><text x="224" textLength="8" class="background"> </text><text x="232" textLength="568" class="foreground">                                                                       </text></g><g id="g12"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="80" class="foreground"> asimov mo</text><text x="232" textLength="8" class="background"> </text><text x="240" textLength="560" class="foreground">                                                                      </text></g><g id="g13"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="88" class="foreground"> asimov mod</text><text x="240" textLength="8" class="background"> </text><text x="248" textLength="552" class="foreground">                                                                     </text></g><g id="g14"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="96" class="foreground"> asimov modu</text><text x="248" textLength="8" class="background"> </text><text x="256" textLength="544" class="foreground">                                                                    </text></g><g id="g15"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="104" class="foreground"> asimov modul</text><text x="256" textLength="8" class="background"> </text><text x="264" textLength="536" class="foreground">                                                                   </text></g><g id="g16"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="112" class="foreground"> asimov module</text><text x="264" textLength="8" class="background"> </text><text x="272" textLength="528" class="foreground">                                                                  </text></g><g id="g17"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="120" class="foreground"> asimov module </text><text x="272" textLength="8" class="background"> </text><text x="280" textLength="520" class="foreground">                                                                 </text></g><g id="g18"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="128" class="foreground"> asimov module i</text><text x="280" textLength="8" class="background"> </text><text x="288" textLength="512" class="foreground">                                                                </text></g><g id="g19"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="136" class="foreground"> asimov module in</text><text x="288" textLength="8" class="background"> </text><text x="296" textLength="504" class="foreground">                                                               </text></g><g id="g20"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="144" class="foreground"> asimov module ins</text><text x="296" textLength="8" class="background"> </text><text x="304" textLength="496" class="foreground">                                                              </text></g><g id="g21"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="152" class="foreground"> asimov module inst</text><text x="304" textLength="8" class="background"> </text><text x="312" textLength="488" class="foreground">                                                             </text></g><g id="g22"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="160" class="foreground"> asimov module insta</text><text x="312" textLength="8" class="background"> </text><text x="320" textLength="480" class="foreground">                                                            </text></g><g id="g23"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="168" class="foreground"> asimov module instal</text><text x="320" textLength="8" class="background"> </text><text x="328" textLength="472" class="foreground">                                                           </text></g><g id="g24"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="176" class="foreground"> asimov module install</text><text x="328" textLength="8" class="background"> </text><text x="336" textLength="464" class="foreground">                                                          </text></g><g id="g25"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="184" class="foreground"> asimov module install </text><text x="336" textLength="8" class="background"> </text><text x="344" textLength="456" class="foreground">                                                         </text></g><g id="g26"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="192" class="foreground"> asimov module install i</text><text x="344" textLength="8" class="background"> </text><text x="352" textLength="448" class="foreground">                                                        </text></g><g id="g27"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="200" class="foreground"> asimov module install im</text><text x="352" textLength="8" class="background"> </text><text x="360" textLength="440" class="foreground">                                                       </text></g><g id="g28"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="208" class="foreground"> asimov module install ima</text><text x="360" textLength="8" class="background"> </text><text x="368" textLength="432" class="foreground">                                                      </text></g><g id="g29"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="216" class="foreground"> asimov module install imap</text><text x="368" textLength="8" class="background"> </text><text x="376" textLength="424" class="foreground">                                                     </text></g><g id="g30"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="224" class="foreground"> asimov module install imap </text><text x="376" textLength="8" class="background"> </text><text x="384" textLength="416" class="foreground">                                                    </text></g><g id="g31"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="232" class="foreground"> asimov module install imap -</text><text x="384" textLength="8" class="background"> </text><text x="392" textLength="408" class="foreground">                                                   </text></g><g id="g32"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="240" class="foreground"> asimov module install imap -v</text><text x="392" textLength="8" class="background"> </text><text x="400" textLength="400" class="foreground">                                                  </text></g><g id="g33"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="648" class="foreground"> asimov module install imap -v                                                   </text></g><g id="g34"><text x="0" textLength="8" font-weight="bold" class="color14">&#10003;</text><text x="8" textLength="384" class="foreground"> Found latest version `0.1.2` for module `imap`.</text></g><g id="g35"><text x="0" textLength="8" font-weight="bold" class="color10">&#10003;</text><text x="8" textLength="440" class="foreground"> Downloaded asset `asimov-imap-module-macos-arm.tar.gz`</text></g><g id="g36"><text x="0" textLength="8" font-weight="bold" class="color10">&#10003;</text><text x="8" textLength="144" class="foreground"> Verified checksum</text></g><g id="g37"><text x="0" textLength="8" font-weight="bold" class="color10">&#10003;</text><text x="8" textLength="312" class="foreground"> Installed binary `asimov-imap-fetcher`</text></g><g id="g38"><text x="0" textLength="8" font-weight="bold" class="color10">&#10003;</text><text x="8" textLength="328" class="foreground"> Installed binary `asimov-imap-cataloger`</text></g><g id="g39"><text x="0" textLength="8" font-weight="bold" class="color10">&#10003;</text><text x="8" textLength="400" class="foreground"> Installed the module `imap` from GitHub releases.</text></g><g id="g40"><text x="0" textLength="136" font-weight="bold" class="color10">scalvin@usrobots:</text><text x="136" textLength="16" font-weight="bold" class="color12">~$</text><text x="152" textLength="648" class="foreground">                                                                                 </text></g></defs><g id="screen_view"><g><rect x="0" y="0" width="8" height="17" class="foreground"/><use xlink:href="#g1" y="0"/></g><g><rect x="0" y="544" width="8" height="17" class="foreground"/><use xlink:href="#g2" y="544"/></g><g><rect x="160" y="1088" width="8" height="17" class="foreground"/><use xlink:href="#g3" y="1088"/></g><g><rect x="168" y="1632" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="1632"/></g><g><rect x="176" y="2176" width="8" height="17" class="foreground"/><use xlink:href="#g5" y="2176"/></g><g><rect x="184" y="2720" width="8" height="17" class="foreground"/><use xlink:href="#g6" y="2720"/></g><g><rect x="192" y="3264" width="8" height="17" class="foreground"/><use xlink:href="#g7" y="3264"/></g><g><rect x="200" y="3808" width="8" height="17" class="foreground"/><use xlink:href="#g8" y="3808"/></g><g><rect x="208" y="4352" width="8" height="17" class="foreground"/><use xlink:href="#g9" y="4352"/></g><g><rect x="216" y="4896" width="8" height="17" class="foreground"/><use xlink:href="#g10" y="4896"/></g><g><rect x="224" y="5440" width="8" height="17" class="foreground"/><use xlink:href="#g11" y="5440"/></g><g><rect x="232" y="5984" width="8" height="17" class="foreground"/><use xlink:href="#g12" y="5984"/></g><g><rect x="240" y="6528" width="8" height="17" class="foreground"/><use xlink:href="#g13" y="6528"/></g><g><rect x="248" y="7072" width="8" height="17" class="foreground"/><use xlink:href="#g14" y="7072"/></g><g><rect x="256" y="7616" width="8" height="17" class="foreground"/><use xlink:href="#g15" y="7616"/></g><g><rect x="264" y="8160" width="8" height="17" class="foreground"/><use xlink:href="#g16" y="8160"/></g><g><rect x="272" y="8704" width="8" height="17" class="foreground"/><use xlink:href="#g17" y="8704"/></g><g><rect x="280" y="9248" width="8" height="17" class="foreground"/><use xlink:href="#g18" y="9248"/></g><g><rect x="288" y="9792" width="8" height="17" class="foreground"/><use xlink:href="#g19" y="9792"/></g><g><rect x="296" y="10336" width="8" height="17" class="foreground"/><use xlink:href="#g20" y="10336"/></g><g><rect x="304" y="10880" width="8" height="17" class="foreground"/><use xlink:href="#g21" y="10880"/></g><g><rect x="312" y="11424" width="8" height="17" class="foreground"/><use xlink:href="#g22" y="11424"/></g><g><rect x="320" y="11968" width="8" height="17" class="foreground"/><use xlink:href="#g23" y="11968"/></g><g><rect x="328" y="12512" width="8" height="17" class="foreground"/><use xlink:href="#g24" y="12512"/></g><g><rect x="336" y="13056" width="8" height="17" class="foreground"/><use xlink:href="#g25" y="13056"/></g><g><rect x="344" y="13600" width="8" height="17" class="foreground"/><use xlink:href="#g26" y="13600"/></g><g><rect x="352" y="14144" width="8" height="17" class="foreground"/><use xlink:href="#g27" y="14144"/></g><g><rect x="360" y="14688" width="8" height="17" class="foreground"/><use xlink:href="#g28" y="14688"/></g><g><rect x="368" y="15232" width="8" height="17" class="foreground"/><use xlink:href="#g29" y="15232"/></g><g><rect x="376" y="15776" width="8" height="17" class="foreground"/><use xlink:href="#g30" y="15776"/></g><g><rect x="384" y="16320" width="8" height="17" class="foreground"/><use xlink:href="#g31" y="16320"/></g><g><rect x="392" y="16864" width="8" height="17" class="foreground"/><use xlink:href="#g32" y="16864"/></g><g><use xlink:href="#g33" y="17408"/><rect x="0" y="17425" width="8" height="17" class="foreground"/><use xlink:href="#g1" y="17425"/></g><g><use xlink:href="#g33" y="17952"/><use xlink:href="#g34" y="17969"/><rect x="0" y="17986" width="8" height="17" class="foreground"/><use xlink:href="#g1" y="17986"/></g><g><use xlink:href="#g33" y="18496"/><use xlink:href="#g34" y="18513"/><use xlink:href="#g35" y="18530"/><rect x="0" y="18547" width="8" height="17" class="foreground"/><use xlink:href="#g1" y="18547"/></g><g><use xlink:href="#g33" y="19040"/><use xlink:href="#g34" y="19057"/><use xlink:href="#g35" y="19074"/><use xlink:href="#g36" y="19091"/><rect x="0" y="19108" width="8" height="17" class="foreground"/><use xlink:href="#g1" y="19108"/></g><g><use xlink:href="#g33" y="19584"/><use xlink:href="#g34" y="19601"/><use xlink:href="#g35" y="19618"/><use xlink:href="#g36" y="19635"/><use xlink:href="#g37" y="19652"/><rect x="0" y="19669" width="8" height="17" class="foreground"/><use xlink:href="#g1" y="19669"/></g><g><use xlink:href="#g33" y="20128"/><use xlink:href="#g34" y="20145"/><use xlink:href="#g35" y="20162"/><use xlink:href="#g36" y="20179"/><use xlink:href="#g37" y="20196"/><use xlink:href="#g38" y="20213"/><rect x="0" y="20230" width="8" height="17" class="foreground"/><use xlink:href="#g1" y="20230"/></g><g><use xlink:href="#g33" y="20672"/><use xlink:href="#g34" y="20689"/><use xlink:href="#g35" y="20706"/><use xlink:href="#g36" y="20723"/><use xlink:href="#g37" y="20740"/><use xlink:href="#g38" y="20757"/><use xlink:href="#g39" y="20774"/><rect x="0" y="20791" width="8" height="17" class="foreground"/><use xlink:href="#g1" y="20791"/></g><g><use xlink:href="#g33" y="21216"/><use xlink:href="#g34" y="21233"/><use xlink:href="#g35" y="21250"/><use xlink:href="#g36" y="21267"/><use xlink:href="#g37" y="21284"/><use xlink:href="#g38" y="21301"/><use xlink:href="#g39" y="21318"/><rect x="160" y="21335" width="8" height="17" class="foreground"/><use xlink:href="#g3" y="21335"/></g><g><use xlink:href="#g33" y="21760"/><use xlink:href="#g34" y="21777"/><use xlink:href="#g35" y="21794"/><use xlink:href="#g36" y="21811"/><use xlink:href="#g37" y="21828"/><use xlink:href="#g38" y="21845"/><use xlink:href="#g39" y="21862"/><use xlink:href="#g40" y="21879"/><rect x="0" y="21896" width="8" height="17" class="foreground"/><use xlink:href="#g1" y="21896"/></g></g></svg>
+</svg>

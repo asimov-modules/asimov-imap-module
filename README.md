@@ -9,11 +9,11 @@
 
 ## ✨ Features
 
-- Fetches email messages from any IMAP server and outputs them as [JSON-LD].
+- Fetches email messages from IMAP servers and outputs them as [JSON-LD].
 - Constructs a semantic knowledge graph based on the [KNOW] ontology.
 - Supports Gmail, Outlook, Yahoo, iCloud, Proton Mail, GMX, Fastmail, and just
   about any other [email provider](#cloud-email-providers).
-- Utilizes server-side sorting of email messages with servers that support it.
+- Uses server-side sorting of email messages with servers that support it.
 - Implements optimal client-side sorting when server-side sorting isn't available.
 - Distributed as a standalone static binary with zero runtime dependencies.
 
@@ -28,6 +28,8 @@
 ```bash
 asimov module install imap -v
 ```
+
+![Installation with the ASIMOV !CLI](https://github.com/asimov-modules/asimov-imap-module/blob/master/etc/install.svg)
 
 ### Installation from Source Code
 
