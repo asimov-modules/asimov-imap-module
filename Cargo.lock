@@ -92,7 +92,7 @@ dependencies = [
 
 [[package]]
 name = "asimov-imap-module"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "asimov-module",
  "clap",
