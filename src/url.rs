@@ -22,14 +22,12 @@ impl ImapUrl {
 
 impl From<&Uri<'_>> for ImapUrl {
     fn from(url: &Uri) -> Self {
+        use percent_encoding::percent_decode_str;
         let url_authority = url.authority().unwrap();
         let is_tls = url.scheme() == UriScheme::Imaps;
-        let first_segment = url
-            .path_segments()
-            .map(|mut segments| segments.next().unwrap_or_default());
-        let mailbox = match first_segment {
-            None | Some("") => "INBOX",
-            Some(name) => name,
+        let mailbox = match url.path().strip_prefix('/') {
+            None | Some("") => "INBOX".to_string(),
+            Some(name) => percent_decode_str(name).decode_utf8_lossy().into_owned(),
         };
 
         Self {
@@ -40,7 +38,7 @@ impl From<&Uri<'_>> for ImapUrl {
                 .unwrap_or_else(|| if is_tls { 993 } else { 143 }),
             user: url_authority.username().map(ToString::to_string),
             password: url_authority.password().map(|password| password.into()),
-            mailbox: mailbox.to_string(),
+            mailbox,
         }
     }
 }

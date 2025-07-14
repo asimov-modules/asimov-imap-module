@@ -30,7 +30,7 @@ tls = []
 tracing = ["asimov-module/tracing", "clientele?/tracing"]
 
 [dependencies]
-asimov-module = { version = "25.0.0-dev.13", default-features = false }
+asimov-module = { version = "25.0.0-dev.14", default-features = false }
 dogma = { version = "0.1.11", default-features = false, features = ["all"] }
 imap = { version = "3.0.0-alpha.15", default-features = false, features = [
     "rustls-tls",
@@ -39,6 +39,7 @@ imap-proto = { version = "0.16", default-features = false }
 jiff = { version = "0.2", default-features = false }
 know = { version = "0.2.3", features = ["imap-proto", "mail-parser", "serde"] }
 mail-parser = "0.11"
+percent-encoding = { version = "2.3", default-features = false }
 rfc2047-decoder = { version = "1.0", default-features = false }
 rustls = { version = "0.22", default-features = false, features = [
     "aws_lc_rs",

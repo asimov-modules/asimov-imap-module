@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.1.1 - 2025-07-14
 ### Added
-- Define the `-n, --order-by` option
+- Define the `-b, --order-by` option
 - Discover available IMAP server capabilities
 - Support server-side sorting
 - Implement client-side sorting
