@@ -101,7 +101,7 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
                 todo!() // TODO
             }
         },
-        _ => {
+        "cli" | _ => {
             for (index, message) in messages.enumerate() {
                 let message = message?;
                 if index > 0 {
