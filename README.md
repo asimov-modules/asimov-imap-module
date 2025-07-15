@@ -39,6 +39,16 @@ cargo install asimov-imap-module
 
 ## 👉 Examples
 
+### Email Import from IETF Mailing Lists
+
+#### Cataloging email messages on a mailing list
+
+```bash
+asimov list imaps://imap.ietf.org/Shared%20Folders/json-canon
+```
+
+![Cataloging email messages on a mailing list](https://github.com/asimov-modules/asimov-imap-module/blob/master/etc/catalog.svg)
+
 ### Email Import from Gmail
 
 #### Cataloging email messages in the inbox
