@@ -29,7 +29,7 @@
 asimov module install imap -v
 ```
 
-<img alt="Installation with the ASIMOV CLI" width="100%" src="https://github.com/asimov-modules/asimov-imap-module/raw/master/etc/install.svg"/>
+<img width="100%" alt="Installation with the ASIMOV CLI" src="https://github.com/asimov-modules/asimov-imap-module/raw/master/etc/install.svg"/>
 
 ### Installation from Source Code
 
@@ -41,13 +41,21 @@ cargo install asimov-imap-module
 
 ### Email Import from IETF Mailing Lists
 
-#### Cataloging email messages on a mailing list
+#### Listing email messages in a mailbox
 
 ```bash
 asimov list imaps://imap.ietf.org/Shared%20Folders/json-canon
 ```
 
-<img alt="Cataloging email messages on a mailing list" width="100%" src="https://github.com/asimov-modules/asimov-imap-module/raw/master/etc/catalog.svg"/>
+<img width="100%" alt="Listing email messages in a mailbox" src="https://github.com/asimov-modules/asimov-imap-module/raw/master/etc/list.svg"/>
+
+#### Exporting email messages in a mailbox as JSON
+
+```bash
+asimov list imaps://imap.ietf.org/Shared%20Folders/json-canon -o json
+```
+
+<img width="100%" alt="Exporting email messages in a mailbox as JSON" src="https://github.com/asimov-modules/asimov-imap-module/raw/master/etc/list-json.svg"/>
 
 ### Email Import from Gmail
 
