@@ -29,7 +29,7 @@
 asimov module install imap -v
 ```
 
-![Installation with the ASIMOV !CLI](https://github.com/asimov-modules/asimov-imap-module/blob/master/etc/install.svg)
+<img alt="Installation with the ASIMOV CLI" width="100%" src="https://github.com/asimov-modules/asimov-imap-module/raw/master/etc/install.svg"/>
 
 ### Installation from Source Code
 
@@ -47,7 +47,7 @@ cargo install asimov-imap-module
 asimov list imaps://imap.ietf.org/Shared%20Folders/json-canon
 ```
 
-![Cataloging email messages on a mailing list](https://github.com/asimov-modules/asimov-imap-module/blob/master/etc/catalog.svg)
+<img alt="Cataloging email messages on a mailing list" width="100%" src="https://github.com/asimov-modules/asimov-imap-module/raw/master/etc/catalog.svg"/>
 
 ### Email Import from Gmail
 
