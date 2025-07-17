@@ -18,6 +18,9 @@ jobs:
     secrets: inherit
     with:
       update_homebrew_tap: true
-      update_scoop_bucket: false
+      update_scoop_bucket: true
       tweet_release: true
-      build-windows: false
+      build-windows-native: true
+      windows_dependencies: |
+        choco install -y nasm
+        echo "C:\Program Files\NASM" >> $env:GITHUB_PATH
