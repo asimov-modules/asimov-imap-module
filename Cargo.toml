@@ -37,7 +37,7 @@ imap = { version = "3.0.0-alpha.15", default-features = false, features = [
 ] }
 imap-proto = { version = "0.16", default-features = false }
 jiff = { version = "0.2", default-features = false }
-know = { version = "0.2.3", features = ["imap-proto", "mail-parser", "serde"] }
+know = { version = "0.2.4", features = ["imap-proto", "mail-parser", "serde"] }
 mail-parser = "0.11"
 percent-encoding = { version = "2.3", default-features = false }
 rfc2047-decoder = { version = "1.0", default-features = false }
@@ -57,6 +57,7 @@ clientele = { version = "0.3.8", default-features = false, features = [
 ], optional = true }
 colored_json = { version = "5", default-features = false, optional = true }
 rust-netrc = { version = "0.1", optional = true }
+serde_json = { version = "1", default-features = false, features = ["alloc"] }
 
 [profile.release]
 opt-level = "z"

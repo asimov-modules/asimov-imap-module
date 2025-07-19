@@ -12,7 +12,7 @@ use dogma::{
     UriScheme::{Imap, Imaps},
     UriValueParser,
 };
-use std::error::Error;
+use std::{error::Error, io::stdout};
 
 /// asimov-imap-cataloger
 #[derive(Debug, Parser)]
@@ -87,6 +87,15 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
         .unwrap_or(&String::default())
         .as_str()
     {
+        "jsonl" => {
+            use know::traits::ToJsonLd;
+            for message in messages {
+                let message = message?;
+                let json = message.headers.to_jsonld()?;
+                serde_json::to_writer(stdout(), &json)?;
+                println!();
+            }
+        },
         "jsonld" | "json" => {
             use know::traits::ToJsonLd;
             let mut output = Vec::new();
@@ -95,19 +104,32 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
                 output.push(message.headers.to_jsonld()?);
             }
             if cfg!(feature = "pretty") {
-                colored_json::write_colored_json(&output, &mut std::io::stdout())?;
-                println!();
+                colored_json::write_colored_json(&output, &mut stdout())?;
             } else {
-                todo!() // TODO
+                serde_json::to_writer(stdout(), &output)?;
             }
+            println!();
         },
         "cli" | _ => {
             for (index, message) in messages.enumerate() {
                 let message = message?;
-                if index > 0 {
-                    println!();
+                match options.flags.verbose {
+                    0 => {
+                        print!("{}", message.headers.oneliner());
+                    },
+                    1 => {
+                        if index > 0 {
+                            println!();
+                        }
+                        print!("{}", message.headers.concise());
+                    },
+                    _ => {
+                        if index > 0 {
+                            println!();
+                        }
+                        print!("{}", message.headers.detailed());
+                    },
                 }
-                print!("{}", message.headers.detailed());
             }
         },
     }
