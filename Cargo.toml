@@ -37,7 +37,7 @@ imap = { version = "3.0.0-alpha.15", default-features = false, features = [
 ] }
 imap-proto = { version = "0.16", default-features = false }
 jiff = { version = "0.2", default-features = false }
-know = { version = "0.2.4", features = ["imap-proto", "mail-parser", "serde"] }
+know = { version = "0.2.6", features = ["imap-proto", "mail-parser", "serde"] }
 mail-parser = "0.11"
 percent-encoding = { version = "2.3", default-features = false }
 rfc2047-decoder = { version = "1.0", default-features = false }

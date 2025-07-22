@@ -1050,9 +1050,9 @@ dependencies = [
 
 [[package]]
 name = "know"
-version = "0.2.4"
+version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "949b49283521991adc0809e7f405ac4518a4e7324b16acbed4868ebfbe03fa62"
+checksum = "813eafb7534bcae9d0e751b5a2683ee8ec0e41507901ebdbef0968ac453b0d55"
 dependencies = [
  "cfg_eval",
  "chrono",
