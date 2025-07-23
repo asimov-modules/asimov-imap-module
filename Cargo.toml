@@ -30,7 +30,7 @@ tls = []
 tracing = ["asimov-module/tracing", "clientele?/tracing"]
 
 [dependencies]
-asimov-module = { version = "25.0.0-dev.14", default-features = false }
+asimov-module = { version = "25.0.0-dev.17", default-features = false }
 dogma = { version = "0.1.11", default-features = false, features = ["all"] }
 imap = { version = "3.0.0-alpha.15", default-features = false, features = [
     "rustls-tls",

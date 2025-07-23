@@ -191,9 +191,9 @@ Options:
       --license              Show license information
   -v, --verbose...           Enable verbose output (may be repeated for more verbosity)
   -V, --version              Print version information
-  -b, --order-by <PROPERTY>  The message property to order messages by [default: none] [possible values: none, timestamp, date, from, to, cc, size]
-  -n, --limit <COUNT>        The maximum number of messages to catalog
-  -o, --output <FORMAT>      The output format
+  -b, --order-by <PROPERTY>  Order messages by a property [default: none] [possible values: none, timestamp, date, from, to, cc, size]
+  -n, --limit <COUNT>        Limit the number of messages to catalog
+  -o, --output <FORMAT>      Set the output format [default: cli] [possible values: cli, json, jsonld, jsonl]
   -h, --help                 Print help (see more with '--help')
 ```
 

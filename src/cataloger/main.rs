@@ -21,7 +21,7 @@ struct Options {
     #[clap(flatten)]
     flags: StandardOptions,
 
-    /// The message property to order messages by.
+    /// Order messages by a property.
     #[arg(
         value_name = "PROPERTY",
         short = 'b',
@@ -32,11 +32,11 @@ struct Options {
     )]
     order_by: ImapOrderBy,
 
-    /// The maximum number of messages to catalog.
+    /// Limit the number of messages to catalog.
     #[arg(value_name = "COUNT", short = 'n', long)]
     limit: Option<usize>,
 
-    /// The output format.
+    /// Set the output format [default: cli] [possible values: cli, json, jsonld, jsonl]
     #[arg(value_name = "FORMAT", short = 'o', long)]
     output: Option<String>,
 
@@ -106,29 +106,20 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
             if cfg!(feature = "pretty") {
                 colored_json::write_colored_json(&output, &mut stdout())?;
             } else {
-                serde_json::to_writer(stdout(), &output)?;
+                serde_json::to_writer_pretty(stdout(), &output)?;
             }
             println!();
         },
         "cli" | _ => {
             for (index, message) in messages.enumerate() {
                 let message = message?;
+                if index > 0 && options.flags.verbose > 0 {
+                    println!();
+                }
                 match options.flags.verbose {
-                    0 => {
-                        print!("{}", message.headers.oneliner());
-                    },
-                    1 => {
-                        if index > 0 {
-                            println!();
-                        }
-                        print!("{}", message.headers.concise());
-                    },
-                    _ => {
-                        if index > 0 {
-                            println!();
-                        }
-                        print!("{}", message.headers.detailed());
-                    },
+                    0 => print!("{}", message.headers.oneliner()),
+                    1 => print!("{}", message.headers.concise()),
+                    _ => print!("{}", message.headers.detailed()),
                 }
             }
         },
