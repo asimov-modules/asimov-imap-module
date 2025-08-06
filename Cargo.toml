@@ -37,7 +37,12 @@ imap = { version = "3.0.0-alpha.15", default-features = false, features = [
 ] }
 imap-proto = { version = "0.16", default-features = false }
 jiff = { version = "0.2", default-features = false }
-know = { version = "0.2.6", features = ["imap-proto", "mail-parser", "serde"] }
+know = { version = "0.2.8", features = [
+    "imap-proto",
+    "mail-parser",
+    "serde",
+    "tldr",
+] }
 mail-parser = "0.11"
 percent-encoding = { version = "2.3", default-features = false }
 rfc2047-decoder = { version = "1.0", default-features = false }
@@ -45,6 +50,7 @@ rustls = { version = "0.22", default-features = false, features = [
     "aws_lc_rs",
 ] }
 secrecy = "0.10"
+tldr = { version = "0.1", package = "tldr-traits", default-features = false }
 
 # Optional integrations:
 clap = { version = "4.5", default-features = false, features = [

@@ -22,7 +22,7 @@ struct Options {
     #[clap(flatten)]
     flags: StandardOptions,
 
-    /// The output format.
+    /// Set the output format [default: cli] [possible values: cli, json, jsonld, mime, tldr]
     #[arg(value_name = "FORMAT", short = 'o', long)]
     output: Option<String>,
 
@@ -74,7 +74,16 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
         Some(message) => {
             match options.output.unwrap_or_default().as_str() {
                 "jsonld" | "json" => print!("{}", message.headers.jsonld()),
-                "mime" | _ => {
+                "tldr" => {
+                    use tldr::{Tldr, TldrContext};
+                    let tldr_ctx = TldrContext::default(); // TODO: locale, verbosity
+                    let tldr = message
+                        .headers
+                        .what(&tldr_ctx)?
+                        .expect("email message should have a TL;DR");
+                    println!("{}.", tldr);
+                },
+                "cli" | "mime" | _ => {
                     print!("{}", message.headers.mime());
                     if let Some(body) = message.body {
                         println!();

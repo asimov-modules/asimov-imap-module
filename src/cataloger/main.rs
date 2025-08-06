@@ -36,7 +36,7 @@ struct Options {
     #[arg(value_name = "COUNT", short = 'n', long)]
     limit: Option<usize>,
 
-    /// Set the output format [default: cli] [possible values: cli, json, jsonld, jsonl]
+    /// Set the output format [default: cli] [possible values: cli, json, jsonld, jsonl, tldr]
     #[arg(value_name = "FORMAT", short = 'o', long)]
     output: Option<String>,
 
@@ -109,6 +109,19 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
                 serde_json::to_writer_pretty(stdout(), &output)?;
             }
             println!();
+        },
+        "tldr" => {
+            use tldr::{Tldr, TldrContext};
+            let tldr_ctx = TldrContext::default(); // TODO: locale, verbosity
+            for (index, message) in messages.enumerate() {
+                let message = message?;
+                if let Some(tldr) = message.headers.what(&tldr_ctx)? {
+                    if index > 0 && options.flags.verbose > 0 {
+                        println!(); // an empty line between message TL;DRs
+                    }
+                    println!("{}.", tldr);
+                }
+            }
         },
         "cli" | _ => {
             for (index, message) in messages.enumerate() {
