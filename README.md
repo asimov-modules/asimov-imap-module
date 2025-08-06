@@ -1,7 +1,6 @@
 # ASIMOV IMAP Module
 
 [![License](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](https://unlicense.org)
-[![Compatibility](https://img.shields.io/badge/rust-1.85%2B-blue)](https://blog.rust-lang.org/2025/02/20/Rust-1.85.0/)
 [![Package on Crates.io](https://img.shields.io/crates/v/asimov-imap-module)](https://crates.io/crates/asimov-imap-module)
 [![Documentation](https://docs.rs/asimov-imap-module/badge.svg)](https://docs.rs/asimov-imap-module)
 
@@ -15,6 +14,7 @@
   about any other [email provider](#cloud-email-providers).
 - Uses server-side sorting of email messages with servers that support it.
 - Implements optimal client-side sorting when server-side sorting isn't available.
+- Loads environment variables from `.env` (aka dotenv) files.
 - Distributed as a standalone static binary with zero runtime dependencies.
 
 ## 🛠️ Prerequisites
@@ -175,6 +175,11 @@ asimov-imap-cataloger imaps://imap.gmail.com/INBOX -n5
 | Sohu Mail | `imaps:` | `myuser@sohu.com` | [`imap.sohu.com`] | 993 |
 | Yahoo Mail | `imaps:` | `myuser@yahoo.com` | [`imap.mail.yahoo.com`] | 993 |
 | Zoho Mail | `imaps:` | `myuser@zoho.com` | [`imap.zoho.com`] | 993 |
+
+### Installed Binaries
+
+- `asimov-imap-cataloger`: lists email messages in an IMAP mailbox
+- `asimov-imap-fetcher`: fetches email messages from an IMAP mailbox
 
 ### `asimov-imap-cataloger`
 

@@ -20,7 +20,7 @@ publish = true
 default = ["all", "cli", "std"]
 all = ["netrc", "pretty", "tls", "tracing"]
 cli = ["asimov-module/cli", "dogma/clap", "std", "dep:clap", "dep:clientele"]
-std = ["asimov-module/std", "dogma/std"]
+std = ["asimov-module/std", "clap?/std", "clientele?/std", "dogma/std"]
 unstable = []
 
 # Optional features:
@@ -30,7 +30,7 @@ tls = []
 tracing = ["asimov-module/tracing", "clientele?/tracing"]
 
 [dependencies]
-asimov-module = { version = "25.0.0-dev.17", default-features = false }
+asimov-module = { version = "25.0.0-dev.20", default-features = false }
 dogma = { version = "0.1.11", default-features = false, features = ["all"] }
 imap = { version = "3.0.0-alpha.15", default-features = false, features = [
     "rustls-tls",
