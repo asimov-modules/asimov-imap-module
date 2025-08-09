@@ -26,12 +26,13 @@ impl TryFrom<&Fetch<'_>> for ImapMessage {
                 let headers: EmailMessage = (&message)
                     .try_into()
                     .map_err(|_| ImapError::InvalidHeaders)?;
+                let body = headers.body.clone();
                 Self {
                     pos: input.message as _,
                     uid: input.uid,
                     size: input.size,
-                    headers: headers.clone(),
-                    body: headers.body,
+                    headers,
+                    body,
                 }
             },
             None => {
