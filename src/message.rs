@@ -23,14 +23,17 @@ impl TryFrom<&Fetch<'_>> for ImapMessage {
                 let message = MessageParser::default()
                     .parse(bytes)
                     .ok_or(ImapError::InvalidMessage)?;
+                
+                let headers: EmailMessage = (&message)
+                    .try_into()
+                    .map_err(|_| ImapError::InvalidHeaders)?;
+                
                 Self {
                     pos: input.message as _,
                     uid: input.uid,
                     size: input.size,
-                    headers: (&message)
-                        .try_into()
-                        .map_err(|_| ImapError::InvalidHeaders)?,
-                    body: message.body_text(0).map(|s| s.into_owned()),
+                    headers: headers.clone(),
+                    body: headers.body,
                 }
             },
             None => {
