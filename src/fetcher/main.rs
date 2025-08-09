@@ -85,10 +85,6 @@ fn main() -> Result<SysexitsError, Box<dyn Error>> {
                 },
                 "cli" | "mime" | _ => {
                     print!("{}", message.headers.mime());
-                    if let Some(body) = message.body {
-                        println!();
-                        print!("{}", body);
-                    }
                 },
             }
             Ok(EX_OK)
