@@ -31,7 +31,7 @@ struct Options {
     message_url: Uri<'static>,
 }
 
-fn main() -> Result<SysexitsError, Box<dyn Error>> {
+pub fn main() -> Result<SysexitsError, Box<dyn Error>> {
     // Load environment variables from `.env`:
     asimov_module::dotenv().ok();
 
