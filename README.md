@@ -1,10 +1,11 @@
 # ASIMOV IMAP Module
 
 [![License](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](https://unlicense.org)
+[![Compatibility](https://img.shields.io/badge/rust-2024%2B-blue)](https://endoflife.date/rust)
 [![Package on Crates.io](https://img.shields.io/crates/v/asimov-imap-module)](https://crates.io/crates/asimov-imap-module)
-[![Documentation](https://docs.rs/asimov-imap-module/badge.svg)](https://docs.rs/asimov-imap-module)
+[![Documentation](https://img.shields.io/docsrs/asimov-imap-module?label=docs.rs)](https://docs.rs/asimov-imap-module)
 
-[ASIMOV] module for [IMAP] email import.
+**[ASIMOV] module for [IMAP] email import.**
 
 ## ✨ Features
 
@@ -29,7 +30,7 @@
 asimov module install imap -v
 ```
 
-<img width="100%" alt="Installation with the ASIMOV CLI" src="https://github.com/asimov-modules/asimov-imap-module/raw/master/etc/install.svg"/>
+<img width="100%" alt="Installation with the ASIMOV CLI" src="https://github.com/asimov-modules/asimov-imap-module/raw/master/etc/asciinema/install.svg"/>
 
 ### Installation from Source Code
 
@@ -47,7 +48,7 @@ cargo install asimov-imap-module
 asimov list imaps://imap.ietf.org/Shared%20Folders/json-canon
 ```
 
-<img width="100%" alt="Listing email messages in a mailbox" src="https://github.com/asimov-modules/asimov-imap-module/raw/master/etc/list.svg"/>
+<img width="100%" alt="Listing email messages in a mailbox" src="https://github.com/asimov-modules/asimov-imap-module/raw/master/etc/asciinema/list.svg"/>
 
 #### Exporting email messages in a mailbox as JSON
 
@@ -55,7 +56,7 @@ asimov list imaps://imap.ietf.org/Shared%20Folders/json-canon
 asimov list imaps://imap.ietf.org/Shared%20Folders/json-canon -o json
 ```
 
-<img width="100%" alt="Exporting email messages in a mailbox as JSON" src="https://github.com/asimov-modules/asimov-imap-module/raw/master/etc/list-json.svg"/>
+<img width="100%" alt="Exporting email messages in a mailbox as JSON" src="https://github.com/asimov-modules/asimov-imap-module/raw/master/etc/asciinema/list-json.svg"/>
 
 ### Email Import from Gmail
 
@@ -155,6 +156,80 @@ asimov-imap-cataloger imaps://imap.gmail.com/INBOX -n5
 
 ## 📚 Reference
 
+### Command-Line Interface
+
+- `asimov-imap-cataloger`: lists email messages in an IMAP mailbox
+- `asimov-imap-fetcher`: fetches email messages from an IMAP mailbox
+
+#### `asimov-imap-cataloger`
+
+```shellsession
+$ asimov-imap-cataloger --help
+asimov-imap-cataloger
+
+Usage: asimov-imap-cataloger [OPTIONS] <IMAP-MAILBOX-URL>
+
+Arguments:
+  <IMAP-MAILBOX-URL>
+          An `imaps://user@host:port/mailbox` (or `imap://...`) URL to the IMAP mailbox to catalog
+
+Options:
+  -d, --debug
+          Enable debugging output
+
+      --license
+          Show license information
+
+  -v, --verbose...
+          Enable verbose output (may be repeated for more verbosity)
+
+  -V, --version
+          Print version information
+
+  -b, --order-by <PROPERTY>
+          Order messages by a property
+          
+          [default: none]
+
+          Possible values:
+          - none:      The default server order
+          - timestamp: The server's received date and time
+          - date:      The sender's sent date and time
+          - from:      The first From address
+          - to:        The first To address
+          - cc:        The first Cc address
+          - size:      The size of the message
+
+  -n, --limit <COUNT>
+          Limit the number of messages to catalog
+
+  -o, --output <FORMAT>
+          Set the output format [default: cli] [possible values: cli, json, jsonld, jsonl, tldr]
+
+  -h, --help
+          Print help (see a summary with '-h')
+```
+
+#### `asimov-imap-fetcher`
+
+```shellsession
+$ asimov-imap-fetcher --help
+asimov-imap-fetcher
+
+Usage: asimov-imap-fetcher [OPTIONS] <IMAP-MESSAGE-URL>
+
+Arguments:
+  <IMAP-MESSAGE-URL>  An `imaps://user@host:port/mailbox#mid` (or `imap://...`) URL to the message to fetch
+
+Options:
+  -d, --debug            Enable debugging output
+      --license          Show license information
+  -v, --verbose...       Enable verbose output (may be repeated for more verbosity)
+  -V, --version          Print version information
+  -o, --output <FORMAT>  Set the output format [default: cli] [possible values: cli, json, jsonld, mime, tldr]
+  -h, --help             Print help
+```
+
 ### Cloud Email Providers
 
 | Provider | Protocol | Username | Hostname | Port |
@@ -176,51 +251,6 @@ asimov-imap-cataloger imaps://imap.gmail.com/INBOX -n5
 | Yahoo Mail | `imaps:` | `myuser@yahoo.com` | [`imap.mail.yahoo.com`] | 993 |
 | Zoho Mail | `imaps:` | `myuser@zoho.com` | [`imap.zoho.com`] | 993 |
 
-### Installed Binaries
-
-- `asimov-imap-cataloger`: lists email messages in an IMAP mailbox
-- `asimov-imap-fetcher`: fetches email messages from an IMAP mailbox
-
-### `asimov-imap-cataloger`
-
-```
-asimov-imap-cataloger
-
-Usage: asimov-imap-cataloger [OPTIONS] <IMAP-MAILBOX-URL>
-
-Arguments:
-  <IMAP-MAILBOX-URL>  An `imaps://user@host:port/mailbox` (or `imap://...`) URL to the IMAP mailbox to catalog
-
-Options:
-  -d, --debug                Enable debugging output
-      --license              Show license information
-  -v, --verbose...           Enable verbose output (may be repeated for more verbosity)
-  -V, --version              Print version information
-  -b, --order-by <PROPERTY>  Order messages by a property [default: none] [possible values: none, timestamp, date, from, to, cc, size]
-  -n, --limit <COUNT>        Limit the number of messages to catalog
-  -o, --output <FORMAT>      Set the output format [default: cli] [possible values: cli, json, jsonld, jsonl]
-  -h, --help                 Print help (see more with '--help')
-```
-
-### `asimov-imap-fetcher`
-
-```
-asimov-imap-fetcher
-
-Usage: asimov-imap-fetcher [OPTIONS] <IMAP-MESSAGE-URL>
-
-Arguments:
-  <IMAP-MESSAGE-URL>  An `imaps://user@host:port/mailbox#mid` (or `imap://...`) URL to the message to fetch
-
-Options:
-  -d, --debug            Enable debugging output
-      --license          Show license information
-  -v, --verbose...       Enable verbose output (may be repeated for more verbosity)
-  -V, --version          Print version information
-  -o, --output <FORMAT>  The output format
-  -h, --help             Print help
-```
-
 ## 👨‍💻 Development
 
 ```bash
@@ -229,11 +259,11 @@ git clone https://github.com/asimov-modules/asimov-imap-module.git
 
 ---
 
-[![Share on X](https://img.shields.io/badge/share%20on-x-03A9F4?logo=x)](https://x.com/intent/post?url=https://github.com/asimov-modules/asimov-imap-module&text=asimov-imap-module)
-[![Share on Reddit](https://img.shields.io/badge/share%20on-reddit-red?logo=reddit)](https://reddit.com/submit?url=https://github.com/asimov-modules/asimov-imap-module&title=asimov-imap-module)
-[![Share on Hacker News](https://img.shields.io/badge/share%20on-hn-orange?logo=ycombinator)](https://news.ycombinator.com/submitlink?u=https://github.com/asimov-modules/asimov-imap-module&t=asimov-imap-module)
-[![Share on Facebook](https://img.shields.io/badge/share%20on-fb-1976D2?logo=facebook)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/asimov-modules/asimov-imap-module)
-[![Share on LinkedIn](https://img.shields.io/badge/share%20on-linkedin-3949AB?logo=linkedin)](https://www.linkedin.com/sharing/share-offsite/?url=https://github.com/asimov-modules/asimov-imap-module)
+[![Share on X](https://img.shields.io/badge/share%20on-x-03A9F4?logo=x)](https://x.com/intent/post?url=https%3A%2F%2Fgithub.com%2Fasimov-modules%2Fasimov-imap-module&text=ASIMOV%20IMAP%20Module)
+[![Share on Reddit](https://img.shields.io/badge/share%20on-reddit-red?logo=reddit)](https://reddit.com/submit?url=https%3A%2F%2Fgithub.com%2Fasimov-modules%2Fasimov-imap-module&title=ASIMOV%20IMAP%20Module)
+[![Share on Hacker News](https://img.shields.io/badge/share%20on-hn-orange?logo=ycombinator)](https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fgithub.com%2Fasimov-modules%2Fasimov-imap-module&t=ASIMOV%20IMAP%20Module)
+[![Share on Facebook](https://img.shields.io/badge/share%20on-fb-1976D2?logo=facebook)](https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgithub.com%2Fasimov-modules%2Fasimov-imap-module)
+[![Share on LinkedIn](https://img.shields.io/badge/share%20on-linkedin-3949AB?logo=linkedin)](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fgithub.com%2Fasimov-modules%2Fasimov-imap-module)
 
 [ASIMOV]: https://asimov.sh
 [ASIMOV CLI]: https://cli.asimov.sh
