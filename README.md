@@ -1,9 +1,7 @@
 # ASIMOV IMAP Module
 
 [![License](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](https://unlicense.org)
-[![Compatibility](https://img.shields.io/badge/rust-2024%2B-blue)](https://endoflife.date/rust)
 [![Package on Crates.io](https://img.shields.io/crates/v/asimov-imap-module)](https://crates.io/crates/asimov-imap-module)
-[![Documentation](https://img.shields.io/docsrs/asimov-imap-module?label=docs.rs)](https://docs.rs/asimov-imap-module)
 
 **[ASIMOV] module for [IMAP] email import.**
 
