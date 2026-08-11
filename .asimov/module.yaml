@@ -18,7 +18,12 @@ handles:
     - imap
     - imaps
 
-uses:
-  env_variables:
-    - ASIMOV_IMAP_USER
-    - ASIMOV_IMAP_PASSWORD
+config:
+  variables:
+    - name: user
+      environment: ASIMOV_IMAP_USER
+      optional: true
+    - name: password
+      environment: ASIMOV_IMAP_PASSWORD
+      secret: true
+      optional: true
