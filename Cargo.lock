@@ -79,14 +79,27 @@ dependencies = [
 ]
 
 [[package]]
-name = "asimov-env"
-version = "25.0.0-dev.20"
+name = "asimov-core"
+version = "25.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fc7e8d5c49db5f5e5fd6e9227a714044a9af5ba6f7cc11a732d9d151edc1f63d"
+checksum = "d156006632dc4c71f6e57ab0132f5427a6cdf68f8800ef6b360295aaf1fddc42"
 dependencies = [
  "cap-directories",
  "cap-std",
- "dogma",
+ "dogma 0.2.1",
+ "know",
+ "tracing",
+]
+
+[[package]]
+name = "asimov-env"
+version = "25.3.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ce929ae644ba8f1923e98dc7323c14e03c3bf9b7996662ac29bf5a2db23c67de"
+dependencies = [
+ "asimov-core",
+ "cap-directories",
+ "cap-std",
  "getenv",
 ]
 
@@ -98,7 +111,7 @@ dependencies = [
  "clap",
  "clientele",
  "colored_json",
- "dogma",
+ "dogma 0.1.11",
  "imap",
  "imap-proto",
  "jiff",
@@ -115,14 +128,17 @@ dependencies = [
 
 [[package]]
 name = "asimov-module"
-version = "25.0.0-dev.20"
+version = "25.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e74dbdbd06e1d5dd6750f23bedb8e260f5582fb0eeec2e45a299df8ce07248c8"
+checksum = "6ce6df8a0e4422330749e05c88fe12d1e30992e5806f6831fe038780d37c80fa"
 dependencies = [
+ "asimov-core",
  "asimov-env",
  "clientele",
- "dogma",
+ "dogma 0.2.1",
  "getenv",
+ "iri-string",
+ "mime",
  "secrecy",
  "serde",
  "serde_json",
@@ -255,44 +271,44 @@ checksum = "0da45bc31171d8d6960122e222a67740df867c1dd53b4d51caa297084c185cab"
 
 [[package]]
 name = "cap-directories"
-version = "3.4.4"
+version = "4.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "de76ff5a29f798eed08a4e40c942b2b72e9a16048a4e9dca31ad61414a1ea9d6"
+checksum = "65fa3600bd82a7782ae602d755a9725b3bba3aa8147d731b350aea0101036799"
 dependencies = [
  "cap-std",
- "directories-next",
+ "directories",
  "rustix 1.0.7",
- "windows-sys 0.59.0",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
 name = "cap-primitives"
-version = "3.4.4"
+version = "4.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0a1e394ed14f39f8bc26f59d4c0c010dbe7f0a1b9bafff451b1f98b67c8af62a"
+checksum = "cdadbd7c002d3a484b35243669abdae85a0ebaded5a61117169dc3400f9a7ff0"
 dependencies = [
  "ambient-authority",
  "fs-set-times",
  "io-extras",
- "io-lifetimes",
+ "io-lifetimes 3.0.1",
  "ipnet",
  "maybe-owned",
  "rustix 1.0.7",
  "rustix-linux-procfs",
- "windows-sys 0.59.0",
+ "windows-sys 0.60.2",
  "winx",
 ]
 
 [[package]]
 name = "cap-std"
-version = "3.4.4"
+version = "4.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "07c0355ca583dd58f176c3c12489d684163861ede3c9efa6fd8bba314c984189"
+checksum = "7281235d6e96d3544ca18bba9049be92f4190f8d923e3caef1b5f66cfa752608"
 dependencies = [
  "camino",
  "cap-primitives",
  "io-extras",
- "io-lifetimes",
+ "io-lifetimes 3.0.1",
  "rustix 1.0.7",
 ]
 
@@ -425,7 +441,7 @@ checksum = "07ab70eb434a01fc8bc1787981828ccf36f1e80a1242b915e085e913b4290e66"
 dependencies = [
  "argfile",
  "clap",
- "dogma",
+ "dogma 0.1.11",
  "dotenvy",
  "error-stack",
  "getenv",
@@ -558,13 +574,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "directories-next"
-version = "2.0.0"
+name = "directories"
+version = "6.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "339ee130d97a610ea5a5872d2bbb130fdf68884ff09d3028b81bec8a1ac23bbc"
+checksum = "16f5094c54661b38d03bd7e50df373292118db60b585c08a411c6d840017fe7d"
 dependencies = [
- "cfg-if",
- "dirs-sys-next",
+ "dirs-sys",
 ]
 
 [[package]]
@@ -584,19 +599,8 @@ checksum = "e01a3366d27ee9890022452ee61b2b63a67e6f13f58900b651ff5665f0bb1fab"
 dependencies = [
  "libc",
  "option-ext",
- "redox_users 0.5.0",
+ "redox_users",
  "windows-sys 0.60.2",
-]
-
-[[package]]
-name = "dirs-sys-next"
-version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4ebda144c4fe02d1f7ea1a7d9641b6fc6b580adcfa024ae48797ecdeb6825b4d"
-dependencies = [
- "libc",
- "redox_users 0.4.6",
- "winapi",
 ]
 
 [[package]]
@@ -617,6 +621,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2ba51e88eeeb6858fc7528ed1727f135646230f30c49f2e922b4ffe9c952f9a5"
 dependencies = [
  "clap",
+ "iri-string",
+ "known-schemes",
+ "serde",
+]
+
+[[package]]
+name = "dogma"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2613a308ba56b339d7d33b6481f02be2380e20c24f5c0ed0ec84bcbfe1f094fe"
+dependencies = [
  "iri-string",
  "known-schemes",
  "serde",
@@ -711,7 +726,7 @@ version = "0.20.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "94e7099f6313ecacbe1256e8ff9d617b75d1bcb16a6fddef94866d225a01a14a"
 dependencies = [
- "io-lifetimes",
+ "io-lifetimes 2.0.4",
  "rustix 1.0.7",
  "windows-sys 0.59.0",
 ]
@@ -728,7 +743,7 @@ version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "08b5c1c21911873fcb901979b0fa4287d3a5ac4296a88cd4764333c0567f26c9"
 dependencies = [
- "dogma",
+ "dogma 0.1.11",
  "secrecy",
 ]
 
@@ -769,7 +784,7 @@ checksum = "fd6761a81efac6a3b56c289383c0e94539ee8ad7441feb682436778019a5bfb0"
 dependencies = [
  "clap",
  "data-url",
- "dogma",
+ "dogma 0.1.11",
  "percent-encoding",
  "thiserror 2.0.12",
 ]
@@ -1021,12 +1036,12 @@ dependencies = [
 
 [[package]]
 name = "io-extras"
-version = "0.18.4"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2285ddfe3054097ef4b2fe909ef8c3bcd1ea52a8f0d274416caebeef39f04a65"
+checksum = "20fd6de4ccfcc187e38bc21cfa543cb5a302cb86a8b114eb7f0bf0dc9f8ac00f"
 dependencies = [
- "io-lifetimes",
- "windows-sys 0.59.0",
+ "io-lifetimes 3.0.1",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -1034,6 +1049,12 @@ name = "io-lifetimes"
 version = "2.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "06432fb54d3be7964ecd3649233cddf80db2832f47fec34c01f65b3d9d774983"
+
+[[package]]
+name = "io-lifetimes"
+version = "3.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2f0fb0570afe1fed943c5c3d4102d5358592d8625fda6a0007fdbe65a92fba96"
 
 [[package]]
 name = "ipnet"
@@ -1235,6 +1256,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32a282da65faaf38286cf3be983213fcf1d2e2a58700e808f83f4ea9a4804bc0"
 
 [[package]]
+name = "mime"
+version = "0.3.17"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6877bb514081ee2a7ff5ef9de3281f14a4dd4bceac4c09388074a6b5df8a139a"
+
+[[package]]
 name = "minimal-lexical"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1428,17 +1455,6 @@ name = "r-efi"
 version = "5.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "69cdb34c158ceb288df11e18b4bd39de994f6657d83847bdffdbd7f346754b0f"
-
-[[package]]
-name = "redox_users"
-version = "0.4.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ba009ff324d1fc1b900bd1fdb31564febe58a8ccc8a6fdbb93b543d33b13ca43"
-dependencies = [
- "getrandom 0.2.16",
- "libredox",
- "thiserror 1.0.69",
-]
 
 [[package]]
 name = "redox_users"
@@ -2217,28 +2233,6 @@ checksum = "a3131afc8c575281e1e80f36ed6a092aa502c08b18ed7524e86fbbb12bb410e1"
 dependencies = [
  "glob",
 ]
-
-[[package]]
-name = "winapi"
-version = "0.3.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5c839a674fcd7a98952e593242ea400abe93992746761e38641405d28b00f419"
-dependencies = [
- "winapi-i686-pc-windows-gnu",
- "winapi-x86_64-pc-windows-gnu",
-]
-
-[[package]]
-name = "winapi-i686-pc-windows-gnu"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6"
-
-[[package]]
-name = "winapi-x86_64-pc-windows-gnu"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
 
 [[package]]
 name = "windows-core"
