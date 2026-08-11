@@ -1,17 +1,19 @@
 // This is free and unencumbered software released into the public domain.
 
 use crate::ImapUrl;
-use clientele::envs as getenv;
+use asimov_module::ModuleManifest;
 use core::error::Error;
 use netrc::Netrc;
 
 pub struct ImapConfiguration {
+    manifest: Option<ModuleManifest>,
     netrc: Option<Netrc>,
 }
 
 impl ImapConfiguration {
     pub fn load() -> Result<Self, Box<dyn Error>> {
         Ok(Self {
+            manifest: ModuleManifest::read_manifest("imap").ok(),
             netrc: Netrc::new().ok(),
         })
     }
@@ -21,9 +23,15 @@ impl ImapConfiguration {
             return Ok(url);
         }
 
-        let env_user = getenv::var("ASIMOV_IMAP_USER");
-        let env_password = getenv::var("ASIMOV_IMAP_PASSWORD");
-        if let (Some(user), Some(password)) = (env_user, env_password) {
+        let configured_user = self
+            .manifest
+            .as_ref()
+            .and_then(|manifest| manifest.variable("user", None).ok());
+        let configured_password = self
+            .manifest
+            .as_ref()
+            .and_then(|manifest| manifest.variable("password", None).ok());
+        if let (Some(user), Some(password)) = (configured_user, configured_password) {
             if !user.is_empty() && !password.is_empty() {
                 (url.user, url.password) = (Some(user), Some(password.into()));
                 return Ok(url);
