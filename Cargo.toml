@@ -24,7 +24,13 @@ summary = "[ASIMOV] module for [IMAP] email import."
 default = ["all", "cli", "std"]
 all = ["netrc", "pretty", "tls", "tracing"]
 cli = ["asimov-module/cli", "dogma/clap", "std", "dep:clap", "dep:clientele"]
-std = ["asimov-module/std", "clap?/std", "clientele?/std", "dogma/std"]
+std = [
+    "asimov-module/serde",
+    "asimov-module/std",
+    "clap?/std",
+    "clientele?/std",
+    "dogma/std",
+]
 unstable = []
 
 # Optional features:
@@ -62,7 +68,6 @@ clap = { version = "4.5", default-features = false, features = [
 ], optional = true }
 clientele = { version = "0.3.8", default-features = false, features = [
     "clap",
-    "getenv",
     "std",
 ], optional = true }
 colored_json = { version = "5", default-features = false, optional = true }
