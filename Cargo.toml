@@ -80,8 +80,8 @@ strip = true
 lto = "thin"
 
 [[bin]]
-name = "asimov-imap-cataloger"
-path = "src/cataloger/main.rs"
+name = "asimov-imap-lister"
+path = "src/lister/main.rs"
 required-features = ["cli"]
 
 [[bin]]

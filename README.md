@@ -58,10 +58,10 @@ asimov list imaps://imap.ietf.org/Shared%20Folders/json-canon -o json
 
 ### Email Import from Gmail
 
-#### Cataloging email messages in the inbox
+#### Listing email messages in the inbox
 
 ```bash
-asimov-imap-cataloger imaps://imap.gmail.com/INBOX -n5
+asimov-imap-lister imaps://imap.gmail.com/INBOX -n5
 ```
 
 #### Fetching a specific email message
@@ -83,7 +83,7 @@ precedence:
 Authentication credentials can be supplied inline in the URL, as follows:
 
 ```bash
-asimov-imap-cataloger imaps://myuser:mypassword@host:port/mailbox
+asimov-imap-lister imaps://myuser:mypassword@host:port/mailbox
 ```
 
 #### 2. Configuring credentials in environment variables
@@ -95,7 +95,7 @@ follows:
 export ASIMOV_IMAP_USER=myuser
 export ASIMOV_IMAP_PASSWORD=mypassword
 
-asimov-imap-cataloger imaps://host:port/mailbox
+asimov-imap-lister imaps://host:port/mailbox
 ```
 
 #### 3. Configuring credentials in the `~/.netrc` file
@@ -110,7 +110,7 @@ password mypassword
 ```
 
 ```bash
-asimov-imap-cataloger imaps://host:port/mailbox
+asimov-imap-lister imaps://host:port/mailbox
 ```
 
 ### Gmail Configuration
@@ -149,27 +149,27 @@ Test your configuration by attempting to list the first five email messages in
 your inbox:
 
 ```bash
-asimov-imap-cataloger imaps://imap.gmail.com/INBOX -n5
+asimov-imap-lister imaps://imap.gmail.com/INBOX -n5
 ```
 
 ## 📚 Reference
 
 ### Command-Line Interface
 
-- `asimov-imap-cataloger`: lists email messages in an IMAP mailbox
+- `asimov-imap-lister`: lists email messages in an IMAP mailbox
 - `asimov-imap-fetcher`: fetches email messages from an IMAP mailbox
 
-#### `asimov-imap-cataloger`
+#### `asimov-imap-lister`
 
 ```shellsession
-$ asimov-imap-cataloger --help
-asimov-imap-cataloger
+$ asimov-imap-lister --help
+asimov-imap-lister
 
-Usage: asimov-imap-cataloger [OPTIONS] <IMAP-MAILBOX-URL>
+Usage: asimov-imap-lister [OPTIONS] <IMAP-MAILBOX-URL>
 
 Arguments:
   <IMAP-MAILBOX-URL>
-          An `imaps://user@host:port/mailbox` (or `imap://...`) URL to the IMAP mailbox to catalog
+          An `imaps://user@host:port/mailbox` (or `imap://...`) URL to the IMAP mailbox to list
 
 Options:
   -d, --debug
@@ -199,7 +199,7 @@ Options:
           - size:      The size of the message
 
   -n, --limit <COUNT>
-          Limit the number of messages to catalog
+          Limit the number of messages to list
 
   -o, --output <FORMAT>
           Set the output format [default: cli] [possible values: cli, json, jsonld, jsonl, tldr]

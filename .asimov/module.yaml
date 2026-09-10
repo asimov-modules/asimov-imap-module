@@ -10,7 +10,7 @@ links:
 
 provides:
   programs:
-    - asimov-imap-cataloger
+    - asimov-imap-lister
     - asimov-imap-fetcher
 
 handles:
