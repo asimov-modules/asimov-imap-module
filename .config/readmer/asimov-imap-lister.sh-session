@@ -1,11 +1,11 @@
-$ asimov-imap-cataloger --help
-asimov-imap-cataloger
+$ asimov-imap-lister --help
+asimov-imap-lister
 
-Usage: asimov-imap-cataloger [OPTIONS] <IMAP-MAILBOX-URL>
+Usage: asimov-imap-lister [OPTIONS] <IMAP-MAILBOX-URL>
 
 Arguments:
   <IMAP-MAILBOX-URL>
-          An `imaps://user@host:port/mailbox` (or `imap://...`) URL to the IMAP mailbox to catalog
+          An `imaps://user@host:port/mailbox` (or `imap://...`) URL to the IMAP mailbox to list
 
 Options:
   -d, --debug
@@ -35,7 +35,7 @@ Options:
           - size:      The size of the message
 
   -n, --limit <COUNT>
-          Limit the number of messages to catalog
+          Limit the number of messages to list
 
   -o, --output <FORMAT>
           Set the output format [default: cli] [possible values: cli, json, jsonld, jsonl, tldr]

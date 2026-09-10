@@ -1,7 +1,7 @@
 // This is free and unencumbered software released into the public domain.
 
 #[cfg(not(feature = "std"))]
-compile_error!("asimov-imap-cataloger requires the 'std' feature");
+compile_error!("asimov-imap-lister requires the 'std' feature");
 
 use asimov_imap_module::{ImapConfiguration, ImapOrderBy, ImapReader};
 use asimov_module::SysexitsError::{self, *};
@@ -14,7 +14,7 @@ use dogma::{
 };
 use std::{error::Error, io::stdout};
 
-/// asimov-imap-cataloger
+/// asimov-imap-lister
 #[derive(Debug, Parser)]
 #[command(arg_required_else_help = true)]
 struct Options {
@@ -32,7 +32,7 @@ struct Options {
     )]
     order_by: ImapOrderBy,
 
-    /// Limit the number of messages to catalog.
+    /// Limit the number of messages to list.
     #[arg(value_name = "COUNT", short = 'n', long)]
     limit: Option<usize>,
 
@@ -40,7 +40,7 @@ struct Options {
     #[arg(value_name = "FORMAT", short = 'o', long)]
     output: Option<String>,
 
-    /// An `imaps://user@host:port/mailbox` (or `imap://...`) URL to the IMAP mailbox to catalog.
+    /// An `imaps://user@host:port/mailbox` (or `imap://...`) URL to the IMAP mailbox to list.
     #[arg(value_name = "IMAP-MAILBOX-URL", value_parser = UriValueParser::new(&[Imap, Imaps]))]
     mailbox_url: Uri<'static>,
 }
